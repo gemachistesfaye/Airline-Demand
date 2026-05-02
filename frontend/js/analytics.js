@@ -1,6 +1,9 @@
 document.addEventListener('DOMContentLoaded', async () => {
-    await fetchMetrics();
-    await fetchChartData();
+    // Initial fetch
+    await Promise.all([
+        fetchMetrics(),
+        fetchChartData()
+    ]);
 });
 
 async function fetchMetrics() {
@@ -8,11 +11,12 @@ async function fetchMetrics() {
         const response = await fetch(`${API_BASE}/metrics`);
         const data = await response.json();
         
+        // Display metrics with professional formatting
         document.getElementById('r2-val').innerText = (data.r2 * 100).toFixed(1) + '%';
         document.getElementById('mae-val').innerText = data.mae.toFixed(2);
         document.getElementById('rmse-val').innerText = data.rmse.toFixed(2);
     } catch (err) {
-        console.error('Metrics fetch error:', err);
+        console.error('Metrics retrieval failed:', err);
     }
 }
 
@@ -21,14 +25,14 @@ async function fetchChartData() {
         const response = await fetch(`${API_BASE}/data`);
         const data = await response.json();
         
-        renderHistoricalChart(data);
+        renderTimelineChart(data);
         renderSeasonalChart(data);
     } catch (err) {
-        console.error('Data fetch error:', err);
+        console.error('Dataset retrieval failed:', err);
     }
 }
 
-function renderHistoricalChart(data) {
+function renderTimelineChart(data) {
     const ctx = document.getElementById('historicalChart').getContext('2d');
     
     const labels = data.map(item => item.Month);
@@ -39,22 +43,40 @@ function renderHistoricalChart(data) {
         data: {
             labels: labels,
             datasets: [{
-                label: 'Passengers',
+                label: 'Passenger Count',
                 data: values,
-                borderColor: '#1e40af',
-                backgroundColor: 'rgba(30, 64, 175, 0.1)',
-                borderWidth: 3,
+                borderColor: '#2563eb',
+                backgroundColor: 'rgba(37, 99, 235, 0.05)',
+                borderWidth: 2,
                 fill: true,
-                tension: 0.4,
-                pointRadius: 0
+                tension: 0.3,
+                pointRadius: 0,
+                pointHoverRadius: 5
             }]
         },
         options: {
             responsive: true,
-            plugins: { legend: { display: false } },
+            maintainAspectRatio: false,
+            plugins: { 
+                legend: { display: false },
+                tooltip: {
+                    mode: 'index',
+                    intersect: false,
+                    backgroundColor: '#0f172a',
+                    titleFont: { size: 13 },
+                    bodyFont: { size: 13 },
+                    padding: 10
+                }
+            },
             scales: {
-                x: { ticks: { maxTicksLimit: 12 } },
-                y: { grid: { color: 'rgba(0,0,0,0.05)' } }
+                x: { 
+                    grid: { display: false },
+                    ticks: { maxTicksLimit: 12, color: '#64748b' } 
+                },
+                y: { 
+                    grid: { color: '#f1f5f9' },
+                    ticks: { color: '#64748b' } 
+                }
             }
         }
     });
@@ -63,38 +85,44 @@ function renderHistoricalChart(data) {
 function renderSeasonalChart(data) {
     const ctx = document.getElementById('seasonalChart').getContext('2d');
     
-    // Group by month
+    // Calculate monthly averages
     const monthlyData = {};
     data.forEach(item => {
-        const month = item.Month.split('-')[1];
-        if (!monthlyData[month]) monthlyData[month] = [];
-        monthlyData[month].push(item['#Passengers']);
+        const monthNum = item.Month.split('-')[1];
+        if (!monthlyData[monthNum]) monthlyData[monthNum] = [];
+        monthlyData[monthNum].push(item['#Passengers']);
     });
 
-    const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-    const avgValues = [];
+    const monthLabels = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    const averages = [];
     for (let i = 1; i <= 12; i++) {
-        const m = i.toString().padStart(2, '0');
-        const avg = monthlyData[m].reduce((a, b) => a + b, 0) / monthlyData[m].length;
-        avgValues.push(avg);
+        const key = i.toString().padStart(2, '0');
+        const avg = monthlyData[key].reduce((a, b) => a + b, 0) / monthlyData[key].length;
+        averages.push(avg);
     }
 
     new Chart(ctx, {
         type: 'bar',
         data: {
-            labels: monthNames,
+            labels: monthLabels,
             datasets: [{
-                label: 'Avg Demand',
-                data: avgValues,
-                backgroundColor: 'rgba(59, 130, 246, 0.7)',
-                borderRadius: 5
+                label: 'Mean Demand',
+                data: averages,
+                backgroundColor: '#334155',
+                hoverBackgroundColor: '#2563eb',
+                borderRadius: 4
             }]
         },
         options: {
             responsive: true,
-            plugins: { legend: { display: false } },
+            maintainAspectRatio: false,
+            plugins: { 
+                legend: { display: false },
+                tooltip: { backgroundColor: '#0f172a' }
+            },
             scales: {
-                y: { beginAtZero: false }
+                x: { grid: { display: false }, ticks: { color: '#64748b' } },
+                y: { grid: { color: '#f1f5f9' }, ticks: { color: '#64748b' } }
             }
         }
     });

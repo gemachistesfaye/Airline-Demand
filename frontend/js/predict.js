@@ -3,6 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const resultSection = document.getElementById('result-section');
     const predictionVal = document.getElementById('prediction-val');
     const loader = document.getElementById('loader');
+    const predictBtn = document.getElementById('predict-btn');
 
     form.addEventListener('submit', async (e) => {
         e.preventDefault();
@@ -11,11 +12,11 @@ document.addEventListener('DOMContentLoaded', () => {
         const month = document.getElementById('month').value;
         const price = document.getElementById('price').value;
 
-        // Visual feedback
-        loader.style.display = 'block';
-        const btnText = e.submitter.querySelector('span');
+        // Visual feedback - Show loader, hide text
+        loader.style.display = 'inline-block';
+        const btnText = predictBtn.querySelector('span');
         if (btnText) btnText.style.visibility = 'hidden';
-        e.submitter.disabled = true;
+        predictBtn.disabled = true;
 
         try {
             const response = await fetch(`${API_BASE}/predict`, {
@@ -27,20 +28,22 @@ document.addEventListener('DOMContentLoaded', () => {
             
             if (data.status === 'success') {
                 resultSection.style.display = 'block';
-                animateValue(predictionVal, 0, Math.round(data.prediction), 1000);
+                // Animate result for professional feel
+                animateValue(predictionVal, 0, Math.round(data.prediction), 800);
                 
-                // Scroll to result
+                // Scroll to result for visibility
                 resultSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
             } else {
-                alert('Error: ' + data.error);
+                alert('Analysis Error: ' + data.error);
             }
         } catch (err) {
-            console.error(err);
-            alert('Failed to connect to SkyLink API.');
+            console.error('API Connection Error:', err);
+            alert('Failed to connect to SkyMetrics Enterprise API.');
         } finally {
+            // Restore button state
             loader.style.display = 'none';
             if (btnText) btnText.style.visibility = 'visible';
-            e.submitter.disabled = false;
+            predictBtn.disabled = false;
         }
     });
 

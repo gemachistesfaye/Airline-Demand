@@ -3,17 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SkyLink AI | Airline Prediction Dashboard</title>
+    <title>SkyMetrics | Airline Demand Prediction</title>
     <link rel="stylesheet" href="css/style.css">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
-    <div class="sky-bg" id="sky-bg"></div>
-
     <nav>
         <a href="index.html" class="logo">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.8 19.2L16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z"/></svg>
-            SkyLink AI
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+            SkyMetrics AI
         </a>
         <div class="nav-links">
             <a href="index.html" class="active">Home</a>
@@ -24,38 +21,44 @@
     </nav>
 
     <main>
-        <section class="hero">
-            <h1>Intelligence Above the Clouds</h1>
-            <p>Empowering airlines with high-precision passenger demand forecasting. Optimize your fleet, manage your resources, and stay ahead of the curve with our AI-driven analytics suite.</p>
-            <div style="display: flex; gap: 1.5rem; justify-content: center;">
-                <a href="pages/predict.html" class="btn">Get Started</a>
-                <a href="pages/analytics.html" class="btn" style="background: white; color: var(--primary);">View Dashboard</a>
+        <section class="hero-section">
+            <h1>Predicting the future of aviation demand</h1>
+            <p>A professional-grade analytics platform leveraging machine learning to forecast passenger volume with high precision. Optimized for airline logistics and resource management.</p>
+            <div style="display: flex; gap: 1rem; justify-content: center;">
+                <a href="pages/predict.html" class="btn-primary">Start Forecasting</a>
+                <a href="pages/analytics.html" class="btn-secondary">View Insights</a>
             </div>
         </section>
 
-        <section style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
+        <section style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem;">
             <div class="card">
+                <div class="mb-4" style="color: var(--primary-blue);">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                </div>
                 <h3>Demand Forecasting</h3>
-                <p style="color: var(--text-muted); margin-top: 1rem;">Predict monthly passenger traffic using our state-of-the-art Linear Regression models tuned for seasonal cycles.</p>
+                <p style="color: var(--text-muted); font-size: 0.875rem;">Utilize time-series regression models to predict passenger counts for upcoming months based on historical seasonal patterns.</p>
             </div>
             <div class="card">
-                <h3>Real-time Analytics</h3>
-                <p style="color: var(--text-muted); margin-top: 1rem;">Visualize historical trends and model performance metrics in real-time through interactive dashboards.</p>
+                <div class="mb-4" style="color: var(--primary-blue);">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.21 15.89A10 10 0 1 1 8 2.83M22 12A10 10 0 0 0 12 2v10z"/></svg>
+                </div>
+                <h3>Analytical Insights</h3>
+                <p style="color: var(--text-muted); font-size: 0.875rem;">Analyze trends and seasonal cycles through high-fidelity data visualizations, providing a deep dive into historical airline demand.</p>
             </div>
             <div class="card">
-                <h3>Scenario Simulation</h3>
-                <p style="color: var(--text-muted); margin-top: 1rem;">Perform "What-If" analysis by simulating the impact of price changes and seasonal shifts on your revenue.</p>
+                <div class="mb-4" style="color: var(--primary-blue);">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>
+                </div>
+                <h3>Price Sensitivity</h3>
+                <p style="color: var(--text-muted); font-size: 0.875rem;">Simulate how ticket price fluctuations impact demand using our integrated What-If analysis toolset.</p>
             </div>
         </section>
     </main>
 
     <footer>
-        <div class="footer-content">
-            <p>&copy; 2026 SkyLink AI. All rights reserved.</p>
-            <div style="display: flex; gap: 1.5rem;">
-                <a href="#" style="color: var(--text-muted); text-decoration: none;">Privacy</a>
-                <a href="#" style="color: var(--text-muted); text-decoration: none;">Terms</a>
-            </div>
+        <div class="footer-inner">
+            <p>&copy; 2026 SkyMetrics AI. Enterprise Analytics Suite.</p>
+            <p>Built for Excellence in Aviation Demand Prediction.</p>
         </div>
     </footer>
 
