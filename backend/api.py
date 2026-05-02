@@ -3,24 +3,29 @@ from flask_cors import CORS
 import pandas as pd
 import numpy as np
 import os
+import joblib
 from model import prepare_and_train
 
 app = Flask(__name__)
 CORS(app) # Enable CORS for frontend interaction
 
 # Load or train model on startup
-print("Initializing model...")
+print("Initializing Airline Demand Prediction System...")
 current_dir = os.path.dirname(os.path.abspath(__file__))
-results_path = os.path.join(current_dir, 'outputs', 'results.csv')
+outputs_dir = os.path.join(current_dir, 'outputs')
+model_path = os.path.join(outputs_dir, 'model.pkl')
+results_path = os.path.join(outputs_dir, 'results.csv')
+metrics_path = os.path.join(outputs_dir, 'metrics.pkl')
 
-# Only train if results don't exist to speed up startup
-if not os.path.exists(results_path):
-    print("No existing model results found. Training model...")
-    model, mse, r2 = prepare_and_train()
+if os.path.exists(model_path) and os.path.exists(results_path):
+    print("Found existing model and results. Loading from disk...")
+    model = joblib.load(model_path)
+    metrics = joblib.load(metrics_path)
+    mse = metrics['mse']
+    r2 = metrics['r2']
 else:
-    print("Found existing model results. Loading from disk...")
-    # Still need to define model, mse, r2 for the API to function
-    model, mse, r2 = prepare_and_train() # Re-run for now, but use_reloader=False will stop the loop
+    print("No existing model found. Training fresh model...")
+    model, mse, r2 = prepare_and_train()
 
 @app.route('/data', methods=['GET'])
 def get_data():

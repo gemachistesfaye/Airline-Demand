@@ -4,6 +4,7 @@ import matplotlib.pyplot as plt
 from sklearn.linear_model import LinearRegression
 from sklearn.metrics import mean_squared_error, r2_score
 import os
+import joblib
 
 def prepare_and_train():
     # 1. Load dataset
@@ -64,6 +65,11 @@ def prepare_and_train():
         os.makedirs(outputs_dir)
         
     df.to_csv(os.path.join(outputs_dir, 'results.csv'), index=False)
+    
+    # Save the model and metrics for persistence
+    joblib.dump(model, os.path.join(outputs_dir, 'model.pkl'))
+    metrics = {'mse': mse, 'r2': r2}
+    joblib.dump(metrics, os.path.join(outputs_dir, 'metrics.pkl'))
     
     # Generate graph.png
     plt.figure(figsize=(12, 6))
