@@ -1,4 +1,4 @@
-# SkyLink AI | Airline Passenger Demand Prediction System ✈️
+# SkyMetrics AI | Airline Passenger Demand Prediction System ✈️
 
 [![Python](https://img.shields.io/badge/Python-3.11-blue.svg)](https://www.python.org/)
 [![Flask](https://img.shields.io/badge/Flask-3.1-green.svg)](https://flask.palletsprojects.com/)
@@ -11,11 +11,11 @@
 - **Landing Dashboard**: Professional introduction to the system's capabilities.
 - **Predictive Engine**: Real-time forecasting based on year, month, and price sensitivity.
 - **Advanced Analytics**: Interactive line and bar charts visualizing historical trends and seasonal cycles.
-- **Modern UI/UX**: 
-  - Glassmorphism design.
-  - Animated sky background with moving clouds.
+- **Enterprise UI/UX**: 
+  - Modern "SaaS-style" dashboard layout.
+  - High-readability typography (Inter) and neutral color system.
   - Fully responsive for mobile and desktop.
-  - Smooth transitions and loading animations.
+  - Smooth transitions and professional loading spinners.
 
 ## 🛠️ Technology Stack
 - **Backend**: Python 3.11, Flask, Scikit-learn, Pandas.
