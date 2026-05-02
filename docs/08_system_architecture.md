@@ -24,7 +24,7 @@ The system follows a modular, decoupled architecture with an enhanced **Python/F
 ### 5. Frontend Layer (Pro Dashboard)
 - **What-If Controller**: Monitors the price slider and triggers asynchronous updates.
 - **Theme Engine**: Manages CSS variables for Light/Dark mode switching.
-- **Visuals**: Multi-chart layout showing Demand, Trend, and Seasonality.
+- **Visuals**: Multi-chart layout showing Demand, Trend and Seasonality.
 
 ## Deployment View
 ```text

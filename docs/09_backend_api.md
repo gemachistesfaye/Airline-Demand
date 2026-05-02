@@ -11,7 +11,7 @@ The backend is built using **Flask**, enhanced with **Statsmodels** for analytic
 
 ### 2. `GET /decompose`
 - **Purpose**: Performs a mathematical decomposition of the passenger data.
-- **Output**: Returns JSON containing `trend`, `seasonal`, and `residual` components.
+- **Output**: Returns JSON containing `trend`, `seasonal` and `residual` components.
 - **Technology**: Uses `statsmodels.tsa.seasonal.seasonal_decompose`.
 
 ### 3. `POST /export`
