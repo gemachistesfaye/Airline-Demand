@@ -3,30 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Airline Demand Forecaster</title>
+    <title>SkyCast Pro | Demand Forecasting</title>
     <link rel="stylesheet" href="style.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
     <div class="container">
         <header>
-            <h1>Airline Demand Forecaster</h1>
-            <p class="subtitle">Linear Regression Powered Predictions</p>
+            <div>
+                <h1>SkyCast Pro <span class="badge">V2.0</span></h1>
+                <p class="subtitle">Advanced Prediction & Analysis Suite</p>
+            </div>
+            <div class="controls-top">
+                <button id="export-btn" class="btn btn-outline">Export Report</button>
+                <label class="theme-switch">
+                    <input type="checkbox" id="theme-toggle">
+                    <span class="slider"></span>
+                </label>
+            </div>
         </header>
 
+        <!-- Prediction & What-If Panel -->
         <section class="card">
+            <h2 style="margin-bottom: 1.5rem;">Forecast Control Center</h2>
             <form id="prediction-form" class="grid-form">
                 <div class="form-group">
-                    <label for="year">Year</label>
+                    <label for="year">Target Year</label>
                     <input type="number" id="year" value="1961" min="1949" max="2030">
                 </div>
                 <div class="form-group">
-                    <label for="month">Month</label>
+                    <label for="month">Target Month</label>
                     <select id="month">
                         <option value="1">January</option>
                         <option value="2">February</option>
                         <option value="3">March</option>
-                        <option value="4">April</option>
+                        <option value="4" selected>April</option>
                         <option value="5">May</option>
                         <option value="6">June</option>
                         <option value="7">July</option>
@@ -38,24 +49,30 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="price">Estimated Price ($)</label>
-                    <input type="number" id="price" value="6000" step="100">
+                    <div style="display: flex; justify-content: space-between;">
+                        <label for="price">Price Influence ($)</label>
+                        <span id="price-val" style="font-weight: 600;">6000</span>
+                    </div>
+                    <input type="range" id="price" min="1000" max="15000" value="6000" step="100">
                 </div>
-                <div style="grid-column: span 3;">
-                    <button type="submit" class="btn">Predict Passengers</button>
+                <div style="grid-column: 1 / -1; margin-top: 1rem;">
+                    <button type="submit" class="btn" style="width: 100%;">Predict Forecast</button>
                 </div>
             </form>
 
-            <div id="result" class="result-section">
-                <p class="subtitle">Predicted Passenger Count</p>
+            <div id="result" class="result-section" style="display: none;">
+                <p class="subtitle">Predicted Passengers</p>
                 <div id="prediction-val" class="result-value">0</div>
+                <p class="subtitle" style="font-size: 0.8rem; margin-top: 0.5rem;">(Based on selected parameters)</p>
             </div>
         </section>
 
+        <!-- Metrics & Main Chart -->
         <section class="card">
+            <h2 style="margin-bottom: 1.5rem;">Performance & Historical Trend</h2>
             <div class="metrics-row">
                 <div class="metric">
-                    <div class="metric-label">R² Score</div>
+                    <div class="metric-label">R² Accuracy</div>
                     <div id="r2-val" class="metric-value">--</div>
                 </div>
                 <div class="metric">
@@ -69,6 +86,20 @@
             </div>
             <div class="chart-container">
                 <canvas id="historicalChart"></canvas>
+            </div>
+        </section>
+
+        <!-- Seasonal Decomposition -->
+        <section class="card">
+            <h2 style="margin-bottom: 1.5rem;">Seasonal Decomposition</h2>
+            <p class="subtitle" style="margin-bottom: 1.5rem;">Separating the long-term trend from recurring seasonal cycles.</p>
+            <div class="chart-grid">
+                <div class="chart-container">
+                    <canvas id="trendChart"></canvas>
+                </div>
+                <div class="chart-container">
+                    <canvas id="seasonalChart"></canvas>
+                </div>
             </div>
         </section>
     </div>

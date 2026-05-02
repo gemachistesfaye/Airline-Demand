@@ -1,8 +1,11 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, send_file
 from flask_cors import CORS
 import pickle
 import os
 import pandas as pd
+import numpy as np
+from statsmodels.tsa.seasonal import seasonal_decompose
+import io
 
 app = Flask(__name__)
 CORS(app)
@@ -28,20 +31,14 @@ def predict():
         month = int(data.get('month', 1))
         price = float(data.get('price', 6000))
 
-        # Prepare features for LR
-        # We need: year, month, season, time_index, lag_1, lag_12, price
         season_map = {12: 0, 1: 0, 2: 0, 3: 1, 4: 1, 5: 1, 6: 2, 7: 2, 8: 2, 9: 3, 10: 3, 11: 3}
         season = season_map.get(month, 0)
         
-        # Approximate time_index (starting from index 144 for 1961-01)
-        # dataset has 144 rows (1949-01 to 1960-12)
         base_year = 1949
         time_index = (year - base_year) * 12 + (month - 1)
         
-        # For demo purposes, we'll use last known lags if predicting near the end
-        # or just provide some defaults if it's way into the future
         lag_1 = data.get('lag_1', last_data['Passengers'])
-        lag_12 = data.get('lag_12', 417) # 1960-01 passengers was 417
+        lag_12 = data.get('lag_12', 417)
 
         input_df = pd.DataFrame([{
             'year': year,
@@ -72,7 +69,6 @@ def get_data():
 
 @app.route('/metrics', methods=['GET'])
 def get_metrics():
-    # Convert numpy types to native python types for JSON serialization
     clean_metrics = {}
     for k, v in metrics.items():
         if hasattr(v, 'item'):
@@ -80,6 +76,46 @@ def get_metrics():
         else:
             clean_metrics[k] = v
     return jsonify(clean_metrics)
+
+@app.route('/decompose', methods=['GET'])
+def decompose():
+    try:
+        df = pd.read_csv(DATA_PATH)
+        df['Month'] = pd.to_datetime(df['Month'])
+        df.set_index('Month', inplace=True)
+        
+        result = seasonal_decompose(df['#Passengers'], model='additive', period=12)
+        
+        return jsonify({
+            'labels': df.index.strftime('%Y-%m').tolist(),
+            'trend': result.trend.fillna(0).tolist(),
+            'seasonal': result.seasonal.tolist(),
+            'resid': result.resid.fillna(0).tolist()
+        })
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
+@app.route('/export', methods=['POST'])
+def export():
+    try:
+        data = request.json
+        predictions = data.get('predictions', [])
+        
+        output = io.BytesIO()
+        writer = pd.ExcelWriter(output, engine='xlsxwriter')
+        
+        df = pd.DataFrame(predictions)
+        df.to_excel(writer, index=False, sheet_name='Forecast')
+        
+        writer.close()
+        output.seek(0)
+        
+        return send_file(output, 
+                         mimetype='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+                         as_attachment=True,
+                         download_name='Airline_Demand_Forecast.xlsx')
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
 
 if __name__ == '__main__':
     app.run(debug=True, port=5000)

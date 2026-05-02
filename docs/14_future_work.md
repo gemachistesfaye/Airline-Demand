@@ -1,21 +1,19 @@
 # 14 Future Work
 
-## Potential Enhancements
+## Potential Enhancements (Post V2.0)
 
-### 1. Advanced Modeling
-- **Non-Linear Models**: Exploring XGBoost or Random Forest for capturing more complex interactions.
-- **Deep Learning**: Implementing LSTM (Long Short-Term Memory) networks for better long-term sequence prediction.
+### 1. Advanced Forecasting
+- **Confidence Intervals**: Adding a "shaded area" to the prediction chart to show the 95% confidence range of the forecast.
+- **Anomaly Detection**: Automatically highlighting unusual months (e.g., a sudden drop in demand due to external events).
 
-### 2. Feature Expansion
-- **Holiday Data**: Incorporating specific public holidays for different regions.
-- **Economic Indicators**: Adding GDP or fuel price data as exogenous variables.
-- **Weather Data**: Integrating weather patterns that might cause flight cancellations or demand shifts.
+### 2. Global Integration
+- **Multi-Currency Support**: Allowing the Price Slider to switch between USD, EUR, and ETB.
+- **Multi-Language UI**: Adding localization for global airline operations.
 
-### 3. System Features
-- **User Authentication**: Securing the dashboard and API.
-- **Batch Predictions**: Allowing users to upload CSV files for bulk demand forecasting.
-- **Automated Retraining**: Implementing a pipeline that automatically updates the model when new monthly data is added.
+### 3. Automated Data Pipelines
+- **Live Ingestion**: Connecting to live flight booking APIs to update the model daily.
+- **Auto-Retraining**: A system that automatically re-trains the Linear Regression model when a new month of data is added.
 
-### 4. Deployment
-- **Cloud Hosting**: Deploying the system on AWS/GCP or Heroku for public accessibility.
-- **Dockerization**: Containerizing the backend and frontend for easier cross-platform deployment.
+### 4. Enterprise Features
+- **PDF Report Generation**: Adding a "Print to PDF" button that generates a professionally formatted executive summary.
+- **User Roles**: Separate dashboards for "Analysts" (view only) and "Managers" (run simulations).

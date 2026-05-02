@@ -1,12 +1,13 @@
 # 01 Overview
 
 ## Project Summary
-The **Airline Passenger Demand Prediction System** is a data-driven application designed to forecast future passenger traffic using historical airline data. By leveraging Machine Learning techniques, specifically Linear Regression, the system provides actionable insights into demand patterns, allowing airline operators to optimize scheduling, pricing, and resource allocation.
+**SkyCast Pro** is an advanced analytical suite designed for forecasting airline passenger traffic. Unlike standard prediction tools, SkyCast Pro (V2.0) combines high-accuracy Machine Learning with deep time-series analysis tools, including seasonal decomposition and real-time scenario simulation.
 
 ## Purpose
-In the highly competitive aviation industry, accurately predicting demand is crucial for operational efficiency. This project demonstrates a full-stack implementation of a forecasting system, from data ingestion and feature engineering to model deployment and interactive visualization.
+The primary purpose of this system is to provide airline decision-makers with a "Control Center" for demand planning. By understanding not just the total demand, but also the underlying trend and seasonal cycles, managers can make more informed choices about fleet deployment and pricing strategies.
 
-## Target Audience
-- **Academic Evaluators**: Instructors and peers reviewing machine learning applications.
-- **Data Scientists**: Interested in time-series forecasting and feature engineering.
-- **Airline Operations Managers**: Seeking automated tools for demand estimation.
+## New in V2.0 (Pro Features)
+- **Time-Series Decomposition**: Visualizing Trend and Seasonal components separately.
+- **Scenario Simulation**: Real-time "What-If" analysis using a price influence slider.
+- **Exporting**: One-click data export to Excel for professional reporting.
+- **Advanced UI**: Full dark mode support for professional environments.

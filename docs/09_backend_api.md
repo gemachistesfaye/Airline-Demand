@@ -1,29 +1,27 @@
 # 09 Backend API
 
 ## Framework
-The backend is built using **Flask**, a lightweight and flexible Python web framework.
+The backend is built using **Flask**, enhanced with **Statsmodels** for analytics and **XlsxWriter** for report generation.
 
-## API Endpoints
+## API Endpoints (Pro V2.0)
 
 ### 1. `POST /predict`
-- **Purpose**: Receives input features and returns a demand forecast.
-- **Input JSON**:
-  ```json
-  { "year": 1961, "month": 7, "price": 8000 }
-  ```
-- **Response**:
-  ```json
-  { "prediction": 463.2, "status": "success" }
-  ```
+- **Purpose**: Real-time forecast based on time index and price.
+- **Input**: `{ "year": int, "month": int, "price": float }`
 
-### 2. `GET /data`
-- **Purpose**: Fetches the full historical dataset for visualization on the dashboard.
-- **Response**: Array of monthly passenger records.
+### 2. `GET /decompose`
+- **Purpose**: Performs a mathematical decomposition of the passenger data.
+- **Output**: Returns JSON containing `trend`, `seasonal`, and `residual` components.
+- **Technology**: Uses `statsmodels.tsa.seasonal.seasonal_decompose`.
 
-### 3. `GET /metrics`
-- **Purpose**: Returns the model's performance statistics (MAE, RMSE, R²).
+### 3. `POST /export`
+- **Purpose**: Generates an Excel report of the latest predictions.
+- **Input**: `{ "predictions": list }`
+- **Output**: Serves an `.xlsx` file as a direct download.
 
-## Key Features
-- **CORS Enabled**: Cross-Origin Resource Sharing is enabled to allow the frontend to communicate with the API from different domains/ports.
-- **Error Handling**: Graceful handling of invalid inputs or internal server errors with appropriate JSON error messages.
-- **Model Persistence**: Loads the pre-trained model once at startup for high performance.
+### 4. `GET /data` & `GET /metrics`
+- **Purpose**: Returns historical data and model performance stats (MAE, RMSE, R²).
+
+## Reliability Features
+- **Stateless Analysis**: Decomposition is calculated on-the-fly to ensure it always reflects the latest state of the dataset.
+- **Memory Efficient**: Excel reports are generated in an in-memory buffer (`io.BytesIO`) before being served, ensuring no temporary files clutter the server.

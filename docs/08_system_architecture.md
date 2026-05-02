@@ -1,29 +1,36 @@
 # 08 System Architecture
 
 ## Architectural Pattern
-The system follows a modular, decoupled architecture consisting of a **Backend API** and a **Client-Side Frontend**.
+The system follows a modular, decoupled architecture with an enhanced **Python/Flask Backend** serving a **Dynamic Vanilla JS Frontend**.
 
-## System Flow
+## System Flow (V2.0 Enhanced)
 
 ### 1. Data Layer
 - **Source**: `airline.csv`
-- **Action**: Data is loaded by the training script and the API for historical visualization.
+- **Action**: Used for training, visualization, and as the input for the decomposition engine.
 
-### 2. Processing Layer (Feature Engineering)
-- **Action**: Raw data is passed through a transformation pipeline where date components are extracted, and lag/seasonal features are calculated.
+### 2. Processing Layer (Analytics Engine)
+- **Feature Engineering**: Standard extraction of year, month, and lags.
+- **Decomposition Engine**: Uses `statsmodels` to perform additive seasonal decomposition, calculating Trend and Seasonal cycles.
 
 ### 3. Model Layer
-- **Action**: The preprocessed data trains a `LinearRegression` model. The final model state is serialized into a `model.pkl` file for persistence.
+- **Action**: A Linear Regression model handles the core prediction logic, specifically trained to account for price sensitivity.
 
-### 4. API Layer (Flask)
-- **Action**: A Flask server loads the `model.pkl`. It listens for HTTP requests (POST for predictions, GET for data). It performs the necessary feature extraction on user inputs before passing them to the model.
+### 4. API Layer (Enhanced Flask)
+- **Endpoint `/predict`**: Real-time prediction with price influence.
+- **Endpoint `/decompose`**: Returns trend and seasonal arrays.
+- **Endpoint `/export`**: Generates and serves an Excel file using `xlsxwriter`.
 
-### 5. Frontend Layer (UI)
-- **Action**: A vanilla JavaScript dashboard provides an interface for users. It uses `fetch()` to communicate with the API and `Chart.js` to render visual insights.
+### 5. Frontend Layer (Pro Dashboard)
+- **What-If Controller**: Monitors the price slider and triggers asynchronous updates.
+- **Theme Engine**: Manages CSS variables for Light/Dark mode switching.
+- **Visuals**: Multi-chart layout showing Demand, Trend, and Seasonality.
 
 ## Deployment View
 ```text
-[ Dataset ] -> [ Training Script ] -> [ model.pkl ]
-                                           |
-[ User ] <-> [ Dashboard (JS) ] <-> [ Flask API ]
+[ Dataset ] -> [ Analytics Engine ] -> [ model.pkl ]
+                      |
+[ User ] <-> [ Pro Dashboard (Dark/Light) ] <-> [ Enhanced API ]
+                                                   |
+                                            [ Excel Generator ]
 ```

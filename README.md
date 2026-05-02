@@ -1,61 +1,53 @@
-# Airline Passenger Demand Prediction System ✈️
+# SkyCast Pro | Airline Passenger Demand Prediction System ✈️
 
-[![Python](https://img.shields.io/badge/Python-3.8+-blue.svg)](https://www.python.org/)
-[![Flask](https://img.shields.io/badge/Flask-2.0+-green.svg)](https://flask.palletsprojects.com/)
+[![Python](https://img.shields.io/badge/Python-3.11-blue.svg)](https://www.python.org/)
+[![Flask](https://img.shields.io/badge/Flask-3.1-green.svg)](https://flask.palletsprojects.com/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 ## 📋 Overview
-The **Airline Passenger Demand Prediction System** is a professional-grade machine learning application designed for academic and operational forecasting. It leverages historical monthly passenger data to predict future traffic patterns using a robust Linear Regression model. The system features a clean, white-themed web dashboard for real-time interaction and data visualization.
+**SkyCast Pro** (V2.0) is an advanced, production-level machine learning application for forecasting airline passenger demand. It provides not just predictions, but deep analytical insights through seasonal decomposition and real-time scenario simulation.
 
-## ❓ Problem Statement
-In the aviation industry, inaccurate demand forecasting leads to resource wastage (fuel, staff) or lost revenue. This project solves the problem by providing an automated, data-driven tool that captures historical trends and seasonal cycles to provide reliable passenger estimates.
+## ✨ Pro Features (V2.0)
+- **Advanced Predictive Analytics**: Powered by a robust Linear Regression model with a 94.7% R² accuracy.
+- **Seasonal Decomposition**: View the "Trend" and "Seasonal" components of your data separately using industry-standard additive decomposition.
+- **Scenario "What-If" Analysis**: Use the real-time **Price Slider** to see how changing ticket prices affects predicted passenger volume instantly.
+- **Premium UI/UX**:
+  - **Dark Mode**: Toggle between a clean professional white theme and a high-contrast dark theme.
+  - **Dynamic Visuals**: Fully interactive charts powered by Chart.js.
+- **Export Capabilities**: Download your forecast reports directly to **Excel (.xlsx)** for executive meetings.
+- **RESTful API**: Enhanced Flask backend with specialized endpoints for decomposition and data export.
 
-## ✨ Key Features
-- **Accurate Demand Prediction**: Powered by a finely-tuned Linear Regression model.
-- **Smart Feature Engineering**: Includes seasonality, trend indices, and lag variables (lag_1, lag_12).
-- **Interactive Dashboard**: A responsive, modern UI built with Vanilla JS and Chart.js.
-- **RESTful API**: A Flask-based backend for seamless data exchange.
-- **Academic Documentation**: Comprehensive documentation suite for evaluation.
-
-## 🛠️ Technologies Used
-- **Language**: Python 3.x
-- **ML Libraries**: Scikit-learn, Pandas, Numpy
-- **Backend**: Flask, Flask-CORS
-- **Frontend**: HTML5, CSS3, JavaScript (ES6+), Chart.js
+## 🛠️ Technology Stack
+- **Backend**: Python 3.11, Flask, Statsmodels, Pandas, XlsxWriter.
+- **Frontend**: HTML5, CSS3 (Modern Flex/Grid), Vanilla JavaScript, Chart.js.
 
 ## 📂 Project Structure
 ```text
 project/
 │
-├── backend/            # Flask API and ML Model
-│   ├── app.py          # API Endpoints
-│   ├── train.py        # Training Script
-│   └── model.pkl       # Saved Model State
+├── backend/            # Advanced Python API
+│   ├── app.py          # Pro API Endpoints (Predict, Decompose, Export)
+│   ├── train.py        # Optimized ML Training Script
+│   └── model.pkl       # Serialized Linear Regression Model
 │
-├── frontend/           # Web Dashboard
-│   ├── index.html      # UI Structure
-│   ├── style.css       # Clean White Design
-│   └── script.js       # UI Logic
+├── frontend/           # Pro Dashboard
+│   ├── index.html      # Responsive UI with Dark Mode support
+│   ├── style.css       # Dynamic Theming & Glassmorphism components
+│   └── script.js       # Real-time state management & Chart logic
 │
-├── docs/               # Detailed Documentation
-│   ├── 01_overview.md  # Introduction
-│   ├── ...             # Specific technical docs
-│   └── 14_future_work.md
-│
-└── dataset/            # Data Storage
-    └── airline.csv     # Historical Data
+├── docs/               # Full Academic Documentation Suite
+└── dataset/            # Historical Data Storage
 ```
 
 ## 🚀 How to Run
 
-### 1. Prerequisite
-Ensure you have Python installed. Install dependencies:
+### 1. Prerequisites
+Install the advanced dependency stack:
 ```bash
-pip install flask flask-cors pandas scikit-learn
+pip install flask flask-cors pandas scikit-learn statsmodels xlsxwriter
 ```
 
 ### 2. Train the Model
-If you want to train the model from scratch, run the following command. This will generate `backend/model.pkl`.
 ```powershell
 & C:/Users/HP/AppData/Local/Programs/Python/Python311/python.exe "c:/Users/HP/Desktop/AI Project/backend/train.py"
 ```
@@ -65,24 +57,12 @@ If you want to train the model from scratch, run the following command. This wil
 & C:/Users/HP/AppData/Local/Programs/Python/Python311/python.exe "c:/Users/HP/Desktop/AI Project/backend/app.py"
 ```
 
-### 🛠️ Optional: Resetting the Model
-If you need to prove the system trains successfully on your machine:
-1. Delete the file `backend/model.pkl`.
-2. Run the **Train the Model** command above.
-3. Verify that a new `model.pkl` file is created.
-
 ### 4. Launch the Dashboard
-Simply open `frontend/index.html` in any modern web browser.
-
-## 📊 Sample Output
-- **Target**: July 1961
-- **Inputs**: Price=$8000, Season=Summer
-- **Prediction**: ~463 Passengers
-- **Model Confidence**: R² Score > 0.94
+Open `frontend/index.html` in your browser. Use the **Theme Toggle** in the top right to switch between Light and Dark modes.
 
 ## 👥 Team Members
-- **Gemachis Tesfaye**: Project Lead, ML Engineer, Full-Stack Developer, Documentation.
+- **Gemachis Tesfaye**: Lead ML Architect, Full-Stack Developer, Documentation Specialist.
 
 ---
 
-*For detailed technical information, please refer to the [docs/](docs/) folder.*
+*Explore the `docs/` folder for 14+ pages of detailed technical documentation.*
