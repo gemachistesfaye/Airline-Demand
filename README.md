@@ -55,15 +55,21 @@ pip install flask flask-cors pandas scikit-learn
 ```
 
 ### 2. Train the Model
-```bash
-cd backend
-python train.py
+If you want to train the model from scratch, run the following command. This will generate `backend/model.pkl`.
+```powershell
+& C:/Users/HP/AppData/Local/Programs/Python/Python311/python.exe "c:/Users/HP/Desktop/AI Project/backend/train.py"
 ```
 
 ### 3. Start the Backend
-```bash
-python app.py
+```powershell
+& C:/Users/HP/AppData/Local/Programs/Python/Python311/python.exe "c:/Users/HP/Desktop/AI Project/backend/app.py"
 ```
+
+### 🛠️ Optional: Resetting the Model
+If you need to prove the system trains successfully on your machine:
+1. Delete the file `backend/model.pkl`.
+2. Run the **Train the Model** command above.
+3. Verify that a new `model.pkl` file is created.
 
 ### 4. Launch the Dashboard
 Simply open `frontend/index.html` in any modern web browser.

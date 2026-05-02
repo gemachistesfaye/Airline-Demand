@@ -19,3 +19,11 @@ The mathematical form is:
 
 ## Implementation Detail
 We used `scikit-learn`'s `LinearRegression` class. The model was trained on 80% of the data and tested on the remaining 20% using a non-shuffled split to preserve the temporal order of observations.
+
+### Environment & Reproducibility
+For maximum stability and compatibility with NumPy/Pandas C-extensions, this model is trained and served using **Python 3.11**. 
+
+To retrain the model locally:
+```powershell
+& C:/Users/HP/AppData/Local/Programs/Python/Python311/python.exe "c:/Users/HP/Desktop/AI Project/backend/train.py"
+```
