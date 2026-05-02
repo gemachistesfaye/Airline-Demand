@@ -13,16 +13,19 @@ async function init() {
     await fetchMetrics();
     await fetchHistoricalData();
     await fetchDecomposition();
-    runPrediction(); // Initial prediction
+    // Removed runPrediction() from init to keep result hidden initially
 }
 
 function setupEventListeners() {
-    // Prediction triggers
-    document.getElementById('year').addEventListener('input', runPrediction);
-    document.getElementById('month').addEventListener('change', runPrediction);
+    // Prediction triggers on submit
+    document.getElementById('prediction-form').addEventListener('submit', (e) => {
+        e.preventDefault();
+        runPrediction();
+    });
+
+    // Label update for price slider
     document.getElementById('price').addEventListener('input', (e) => {
         document.getElementById('price-val').innerText = e.target.value;
-        runPrediction();
     });
 
     // Theme toggle
@@ -49,7 +52,12 @@ async function runPrediction() {
         const data = await response.json();
         
         if (data.status === 'success') {
+            const resultDiv = document.getElementById('result');
             const valDiv = document.getElementById('prediction-val');
+            
+            // Show the result section if it was hidden
+            resultDiv.style.display = 'block';
+            
             animateValue(valDiv, parseInt(valDiv.innerText.replace(/,/g, '')) || 0, Math.round(data.prediction), 500);
             
             // Store for export
