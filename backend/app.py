@@ -8,8 +8,9 @@ app = Flask(__name__)
 CORS(app)
 
 # Load model and info
-MODEL_PATH = 'model.pkl'
-DATA_PATH = os.path.join('..', 'dataset', 'airline.csv')
+base_dir = os.path.dirname(__file__)
+MODEL_PATH = os.path.join(base_dir, 'model.pkl')
+DATA_PATH = os.path.join(base_dir, '..', 'dataset', 'airline.csv')
 
 with open(MODEL_PATH, 'rb') as f:
     model_data = pickle.load(f)

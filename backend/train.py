@@ -14,7 +14,8 @@ def get_season(month):
 
 def train_model():
     # Load dataset
-    data_path = os.path.join('..', 'dataset', 'airline.csv')
+    base_dir = os.path.dirname(__file__)
+    data_path = os.path.join(base_dir, '..', 'dataset', 'airline.csv')
     df = pd.read_csv(data_path)
     df.columns = ['Month', 'Passengers']
     
@@ -79,7 +80,8 @@ def train_model():
         'last_data': df.iloc[-1].to_dict() # Useful for lag calculation
     }
     
-    with open('model.pkl', 'wb') as f:
+    model_path = os.path.join(base_dir, 'model.pkl')
+    with open(model_path, 'wb') as f:
         pickle.dump(model_data, f)
     
     print("Model saved to backend/model.pkl")
