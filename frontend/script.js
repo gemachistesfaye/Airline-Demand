@@ -1,4 +1,5 @@
 const API_URL = 'http://127.0.0.1:5000';
+console.log("Airline Prediction Script Loaded");
 let demandChart;
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -19,7 +20,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 async function fetchData() {
-    showLoader(true);
+    console.log("Fetching initial data...");
     try {
         const response = await fetch(`${API_URL}/data`);
         const result = await response.json();

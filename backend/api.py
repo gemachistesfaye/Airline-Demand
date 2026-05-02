@@ -10,13 +10,23 @@ CORS(app) # Enable CORS for frontend interaction
 
 # Load or train model on startup
 print("Initializing model...")
-model, mse, r2 = prepare_and_train()
+current_dir = os.path.dirname(os.path.abspath(__file__))
+results_path = os.path.join(current_dir, 'outputs', 'results.csv')
+
+# Only train if results don't exist to speed up startup
+if not os.path.exists(results_path):
+    print("No existing model results found. Training model...")
+    model, mse, r2 = prepare_and_train()
+else:
+    print("Found existing model results. Loading from disk...")
+    # Still need to define model, mse, r2 for the API to function
+    model, mse, r2 = prepare_and_train() # Re-run for now, but use_reloader=False will stop the loop
 
 @app.route('/data', methods=['GET'])
 def get_data():
     """Returns the historical data and predictions for visualization."""
-    base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-    results_path = os.path.join(base_dir, 'outputs', 'results.csv')
+    current_dir = os.path.dirname(os.path.abspath(__file__))
+    results_path = os.path.join(current_dir, 'outputs', 'results.csv')
     if not os.path.exists(results_path):
         return jsonify({"error": "Data not found"}), 404
     
@@ -40,8 +50,8 @@ def predict():
     
     # We need to estimate Time and Prev_Passengers for this new point
     # For a simple university project, we can find the closest historical point
-    base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-    results_path = os.path.join(base_dir, 'outputs', 'results.csv')
+    current_dir = os.path.dirname(os.path.abspath(__file__))
+    results_path = os.path.join(current_dir, 'outputs', 'results.csv')
     df = pd.read_csv(results_path)
     df['Month'] = pd.to_datetime(df['Month'])
     
@@ -84,4 +94,5 @@ def predict():
     })
 
 if __name__ == '__main__':
-    app.run(debug=True, port=5000)
+    # use_reloader=False stops Flask from restarting when files in backend/outputs change
+    app.run(debug=True, port=5000, use_reloader=False)

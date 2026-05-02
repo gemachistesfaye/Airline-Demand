@@ -7,8 +7,10 @@ import os
 
 def prepare_and_train():
     # 1. Load dataset
-    # Get the directory where this script is located
-    base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    # Get the directory where this script is located (backend/)
+    current_dir = os.path.dirname(os.path.abspath(__file__))
+    # data/ is one level up from backend/
+    base_dir = os.path.dirname(current_dir)
     data_path = os.path.join(base_dir, 'data', 'AirPassengers.csv')
     df = pd.read_csv(data_path)
     
@@ -56,7 +58,8 @@ def prepare_and_train():
     df['Predicted'] = model.predict(X)
     
     # 9. Save results for frontend usage
-    outputs_dir = os.path.join(base_dir, 'outputs')
+    # Save to backend/outputs to avoid triggering Live Server reloads
+    outputs_dir = os.path.join(current_dir, 'outputs')
     if not os.path.exists(outputs_dir):
         os.makedirs(outputs_dir)
         
