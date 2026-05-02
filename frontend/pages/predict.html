@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Predict | SkyLink AI</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <div class="sky-bg" id="sky-bg"></div>
+
+    <nav>
+        <a href="../index.html" class="logo">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.8 19.2L16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z"/></svg>
+            SkyLink AI
+        </a>
+        <div class="nav-links">
+            <a href="../index.html">Home</a>
+            <a href="predict.html" class="active">Predict</a>
+            <a href="analytics.html">Analytics</a>
+            <a href="about.html">About</a>
+        </div>
+    </nav>
+
+    <main>
+        <section class="card fade-in">
+            <h2 style="margin-bottom: 2rem;">Demand Forecasting Engine</h2>
+            <form id="prediction-form">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="year">Year</label>
+                        <input type="number" id="year" value="1961" min="1949" max="2030">
+                    </div>
+                    <div class="form-group">
+                        <label for="month">Month</label>
+                        <select id="month">
+                            <option value="1">January</option>
+                            <option value="2">February</option>
+                            <option value="3">March</option>
+                            <option value="4" selected>April</option>
+                            <option value="5">May</option>
+                            <option value="6">June</option>
+                            <option value="7">July</option>
+                            <option value="8">August</option>
+                            <option value="9">September</option>
+                            <option value="10">October</option>
+                            <option value="11">November</option>
+                            <option value="12">December</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="price">Price Influence ($)</label>
+                        <input type="number" id="price" value="6000" step="100">
+                    </div>
+                </div>
+                <div style="display: flex; gap: 1rem;">
+                    <button type="submit" class="btn" id="predict-btn">
+                        <span>Generate Forecast</span>
+                        <div class="loader" id="loader"></div>
+                    </button>
+                    <button type="reset" class="btn" style="background: transparent; color: var(--text-muted); border: 1px solid var(--border);">Reset Form</button>
+                </div>
+            </form>
+        </section>
+
+        <section class="card result-card" id="result-section">
+            <p class="metric-label">Predicted Passenger Demand</p>
+            <div class="result-value" id="prediction-val">0</div>
+            <p style="color: var(--text-muted);">Results based on historical seasonal trends and price elasticity.</p>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 SkyLink AI. Advanced Forecasting Systems.</p>
+    </footer>
+
+    <script src="../js/main.js"></script>
+    <script src="../js/predict.js"></script>
+</body>
+</html>

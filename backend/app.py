@@ -7,11 +7,11 @@ import numpy as np
 from statsmodels.tsa.seasonal import seasonal_decompose
 import io
 
-app = Flask(__name__)
-CORS(app)
-
 # Load model and info
 base_dir = os.path.dirname(__file__)
+app = Flask(__name__, static_folder=os.path.join(base_dir, '..', 'frontend'), static_url_path='/')
+CORS(app)
+
 MODEL_PATH = os.path.join(base_dir, 'model.pkl')
 DATA_PATH = os.path.join(base_dir, '..', 'dataset', 'airline.csv')
 
@@ -22,6 +22,10 @@ model = model_data['model']
 metrics = model_data['metrics']
 features = model_data['features']
 last_data = model_data['last_data']
+
+@app.route('/')
+def index():
+    return app.send_static_file('index.html')
 
 @app.route('/predict', methods=['POST'])
 def predict():
