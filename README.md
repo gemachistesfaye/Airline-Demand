@@ -1,56 +1,82 @@
-# SkyCast AI: Airline Passenger Demand Prediction System
+# Airline Passenger Demand Prediction System ✈️
 
-A production-level machine learning application for forecasting airline passenger demand using historical data.
+[![Python](https://img.shields.io/badge/Python-3.8+-blue.svg)](https://www.python.org/)
+[![Flask](https://img.shields.io/badge/Flask-2.0+-green.svg)](https://flask.palletsprojects.com/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-## 🚀 Features
-- **Predictive Analytics**: Uses Random Forest Regressor to forecast passenger demand.
-- **Dynamic Dashboard**: Real-time predictions with interactive Chart.js visualizations.
-- **Full-Stack Architecture**: Clean separation between Python/Flask backend and Vanilla JS frontend.
-- **Model Management**: Ability to retrain the model directly from the UI.
-- **Glassmorphism UI**: Modern, premium design with responsive layout.
+## 📋 Overview
+The **Airline Passenger Demand Prediction System** is a professional-grade machine learning application designed for academic and operational forecasting. It leverages historical monthly passenger data to predict future traffic patterns using a robust Linear Regression model. The system features a clean, white-themed web dashboard for real-time interaction and data visualization.
 
-## 🛠️ Technology Stack
-- **Backend**: Flask, Scikit-learn, Pandas, Numpy.
-- **Frontend**: HTML5, CSS3 (Vanilla), JavaScript (ES6+), Chart.js.
-- **Machine Learning**: Linear Regression (Baseline), Random Forest (Main).
+## ❓ Problem Statement
+In the aviation industry, inaccurate demand forecasting leads to resource wastage (fuel, staff) or lost revenue. This project solves the problem by providing an automated, data-driven tool that captures historical trends and seasonal cycles to provide reliable passenger estimates.
+
+## ✨ Key Features
+- **Accurate Demand Prediction**: Powered by a finely-tuned Linear Regression model.
+- **Smart Feature Engineering**: Includes seasonality, trend indices, and lag variables (lag_1, lag_12).
+- **Interactive Dashboard**: A responsive, modern UI built with Vanilla JS and Chart.js.
+- **RESTful API**: A Flask-based backend for seamless data exchange.
+- **Academic Documentation**: Comprehensive documentation suite for evaluation.
+
+## 🛠️ Technologies Used
+- **Language**: Python 3.x
+- **ML Libraries**: Scikit-learn, Pandas, Numpy
+- **Backend**: Flask, Flask-CORS
+- **Frontend**: HTML5, CSS3, JavaScript (ES6+), Chart.js
 
 ## 📂 Project Structure
-```
-airline-ml-system/
+```text
+project/
 │
-├── backend/
-│   ├── app.py          # Flask API
-│   ├── model.py        # Model wrapper
-│   ├── train.py        # ML training script
-│   ├── utils.py        # Data helpers
-│   └── requirements.txt
+├── backend/            # Flask API and ML Model
+│   ├── app.py          # API Endpoints
+│   ├── train.py        # Training Script
+│   └── model.pkl       # Saved Model State
 │
-├── frontend/
+├── frontend/           # Web Dashboard
 │   ├── index.html      # UI Structure
-│   ├── style.css       # Premium Styling
+│   ├── style.css       # Clean White Design
 │   └── script.js       # UI Logic
 │
-├── dataset/
-│   └── airline.csv     # Historical data
+├── docs/               # Detailed Documentation
+│   ├── 01_overview.md  # Introduction
+│   ├── ...             # Specific technical docs
+│   └── 14_future_work.md
 │
-└── model/
-    └── model.pkl       # Serialized best model
+└── dataset/            # Data Storage
+    └── airline.csv     # Historical Data
 ```
 
-## ⚙️ Setup & Installation
-1. Install dependencies:
-   ```bash
-   pip install -r backend/requirements.txt
-   ```
-2. Train the initial model:
-   ```bash
-   python backend/train.py
-   ```
-3. Start the backend:
-   ```bash
-   python backend/app.py
-   ```
-4. Open `frontend/index.html` in your browser.
+## 🚀 How to Run
 
-## 📈 Model Performance
-The Random Forest model is evaluated using R² score, Mean Absolute Error (MAE), and Mean Squared Error (MSE). Performance metrics are visible in the dashboard.
+### 1. Prerequisite
+Ensure you have Python installed. Install dependencies:
+```bash
+pip install flask flask-cors pandas scikit-learn
+```
+
+### 2. Train the Model
+```bash
+cd backend
+python train.py
+```
+
+### 3. Start the Backend
+```bash
+python app.py
+```
+
+### 4. Launch the Dashboard
+Simply open `frontend/index.html` in any modern web browser.
+
+## 📊 Sample Output
+- **Target**: July 1961
+- **Inputs**: Price=$8000, Season=Summer
+- **Prediction**: ~463 Passengers
+- **Model Confidence**: R² Score > 0.94
+
+## 👥 Team Members
+- **Gemachis Tesfaye**: Project Lead, ML Engineer, Full-Stack Developer, Documentation.
+
+---
+
+*For detailed technical information, please refer to the [docs/](docs/) folder.*
