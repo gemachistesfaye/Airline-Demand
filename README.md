@@ -13,14 +13,14 @@
 ## 🚀 Core Objectives
 - **Predictive Accuracy**: Utilize Linear Regression with seasonal decomposition to forecast demand.
 - **Data Visualization**: Provide intuitive, interactive charts using Chart.js.
-- **Enterprise Experience**: Deliver a professional, clean, and responsive dashboard interface.
+- **Enterprise Experience**: Deliver a professional, clean and responsive dashboard interface.
 - **Scalable Architecture**: Decoupled frontend-backend communication via RESTful APIs.
 
 ## ✨ Key Features
 - 📊 **Intelligent Dashboard**: Real-time overview of historical trends and model accuracy scores.
 - 🔮 **Advanced Forecaster**: Multi-parameter prediction engine (Year, Month, Price) with automatic season detection.
 - 📈 **Deep Analytics**: Dynamic line and bar charts visualizing seasonal cycles and long-term trends.
-- 💎 **Premium UI**: Modern navy/slate theme, sleek typography (Inter), and glassmorphism elements.
+- 💎 **Premium UI**: Modern navy/slate theme, sleek typography (Inter) and glassmorphism elements.
 - ⚡ **Asynchronous Logic**: Zero-reload experience using Vanilla JS and Fetch API.
 
 ## 🛠️ Technology Stack
@@ -76,4 +76,4 @@ Simply open the following file in any modern web browser:
 > [!NOTE]
 > This system was developed as a flagship project for university submission, demonstrating industry-level software engineering and machine learning principles.
 
-© 2024 University Academic Project 2026
+© 2026 University Academic Project
