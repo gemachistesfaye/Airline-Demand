@@ -7,12 +7,12 @@ The development of **AeroDemand AI** was a collaborative effort involving specia
 | Team Member | Primary Role | Key Contributions |
 | :--- | :--- | :--- |
 | **Gemachis Tesfaye** | **Lead ML Architect** | Directed the ML pipeline, including feature engineering (seasonality, lags), model training (Linear Regression), and evaluation logic. |
-| **Bonsa Horsa** | **Backend Support** | Assisted in Flask API setup, route structuring, and frontend-to-backend data integration. |
-| **Daniel Alemayehu** | **UI/UX Designer** | Developed the core interface structure and implemented the "Industry-Grade" dashboard components. |
-| **Gelata Driba** | **Data Analyst** | Performed initial exploratory data analysis (EDA) and validated historical demand patterns. |
+| **Sisay Tasew** | **Backend Support** | Assisted in Flask API setup, route structuring, and frontend-to-backend data integration. |
+| **Daniel Alemayehu** | **Data Analyst** | Performed initial exploratory data analysis (EDA) and validated historical demand patterns. |
+| **Gelata Driba** | **UI/UX Designer** | Developed the core interface structure and implemented the "Industry-Grade" dashboard components. |
 | **Hawi Desalegn** | **System Architect** | Designed the modular project structure and managed the decoupling of the frontend and backend layers. |
-| **Kenenisa Gudeta** | **Data Engineer** | Managed dataset cleaning and ensured optimal data formatting for the model training pipeline. |
-| **Sisay Tasew** | **Documentation Lead** | Authored the 14-page technical documentation suite and ensured academic report standards. |
+| **Kenenisa Gudeta** | **Data Engineer** | Sourced the historical airline dataset from Kaggle and managed dataset cleaning/formatting. |
+| **Bonsa Horsa** | **Documentation Lead** | Authored the 14-page technical documentation suite and ensured academic report standards. |
 
 ---
 

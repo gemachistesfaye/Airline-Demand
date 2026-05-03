@@ -66,7 +66,7 @@ Simply open the following file in any modern web browser:
 
 ## 👥 Professional Team
 - **Gemachis Tesfaye**: Project Lead & ML Architect
-- **Bonsa Horsa**: Backend Integration
+- **Sisay Tasew**: Backend Integration
 
 > [!TIP]
 > For the complete list of team members and their detailed technical contributions, please refer to the [Team Contribution Report](docs/13_team_contribution.md).
