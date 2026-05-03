@@ -1,7 +1,7 @@
 # 01 Overview
 
 ## Project Summary
-**SkyCast Pro** is an advanced analytical suite designed for forecasting airline passenger traffic. Unlike standard prediction tools, SkyCast Pro (V2.0) combines high-accuracy Machine Learning with deep time-series analysis tools, including seasonal decomposition and real-time scenario simulation.
+**AeroDemand AI Pro** is an advanced analytical suite designed for forecasting airline passenger traffic. Unlike standard prediction tools, AeroDemand AI Pro (V2.0) combines high-accuracy Machine Learning with deep time-series analysis tools, including seasonal decomposition and real-time scenario simulation.
 
 ## Purpose
 The primary purpose of this system is to provide airline decision-makers with a "Control Center" for demand planning. By understanding not just the total demand, but also the underlying trend and seasonal cycles, managers can make more informed choices about fleet deployment and pricing strategies.

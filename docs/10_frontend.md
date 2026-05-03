@@ -1,7 +1,7 @@
 # 10 Frontend
 
 ## Design Philosophy (Pro V2.0)
-The SkyCast Pro interface is built to handle multiple data streams without overwhelming the user. It uses a **modular grid system** and **dynamic theming** to create a high-end dashboard feel.
+The AeroDemand AI Pro interface is built to handle multiple data streams without overwhelming the user. It uses a **modular grid system** and **dynamic theming** to create a high-end dashboard feel.
 
 ## Pro Components
 
