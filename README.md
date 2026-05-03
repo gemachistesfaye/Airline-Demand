@@ -46,6 +46,12 @@ AeroDemand-AI/
 └── dataset/            # Historical Airline Data
 ```
 
+## 🛠️ Technical Highlights
+- **ML Precision**: Utilizes a Linear Regression model with a focus on temporal feature engineering, achieving an R² score of ~0.94.
+- **Dynamic UI**: A high-performance SPA (Single Page Application) architecture ensuring sub-second response times.
+- **Seasonality Engine**: Custom logic to handle cyclical airline demand patterns (Summer peaks, Winter troughs).
+- **Responsive Design**: Fluid layout optimized for desktop analytics and mobile monitoring.
+
 ## 🏁 Quick Start Guide
 
 ### 1. Initialize the Intelligence Layer
@@ -59,15 +65,11 @@ Simply open the following file in any modern web browser:
 `frontend/index.html`
 
 ## 👥 Professional Team
-| Name | Role |
-| :--- | :--- |
-| **Gemachis Tesfaye** | Lead ML Architect |
-| **Bonsa Horsa** | Backend Support |
-| **Daniel Alemayehu** | UI/UX Designer |
-| **Gelata Driba** | Data Analyst |
-| **Hawi Desalegn** | System Architect |
-| **Kenenisa Gudeta** | Data Engineer |
-| **Sisay Tasew** | Documentation Lead |
+- **Gemachis Tesfaye**: Project Lead & ML Architect
+- **Bonsa Horsa**: Backend Integration
+
+> [!TIP]
+> For the complete list of team members and their detailed technical contributions, please refer to the [Team Contribution Report](docs/13_team_contribution.md).
 
 ---
 
