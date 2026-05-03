@@ -1,11 +1,11 @@
-# SkyMetrics AI | Airline Passenger Demand Prediction System ✈️
+# AeroDemand AI | Airline Passenger Demand Prediction System ✈️
 
 [![Python](https://img.shields.io/badge/Python-3.11-blue.svg)](https://www.python.org/)
 [![Flask](https://img.shields.io/badge/Flask-3.1-green.svg)](https://flask.palletsprojects.com/)
 [![UI/UX](https://img.shields.io/badge/UI/UX-Professional-orange.svg)](#)
 
 ## 📋 Overview
-**SkyLink AI** is a production-level machine learning suite designed for airline passenger demand forecasting. It provides high-precision predictions and deep analytical insights through a modern, aviation-themed dashboard.
+**AeroDemand AI** is a production-level machine learning suite designed for airline passenger demand forecasting. It provides high-precision predictions and deep analytical insights through a modern, aviation-themed dashboard.
 
 ## ✨ Features
 - **Landing Dashboard**: Professional introduction to the system's capabilities.

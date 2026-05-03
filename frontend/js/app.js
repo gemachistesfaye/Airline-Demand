@@ -1,5 +1,5 @@
 /**
- * SkyCast - Airline Passenger Demand Prediction System
+ * AeroDemand AI - Airline Passenger Demand Prediction System
  * Frontend Logic
  */
 
