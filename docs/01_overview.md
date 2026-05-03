@@ -1,13 +1,14 @@
 # 01 Overview
 
 ## Project Summary
-**AeroDemand AI Pro** is an advanced analytical suite designed for forecasting airline passenger traffic. Unlike standard prediction tools, AeroDemand AI Pro (V2.0) combines high-accuracy Machine Learning with deep time-series analysis tools, including seasonal decomposition and real-time scenario simulation.
+**AeroDemand AI** is a professional-grade analytical platform designed for high-precision airline passenger demand forecasting. The system bridges the gap between complex data science and business decision-making by providing a clean, interactive dashboard that visualizes historical trends and generates future demand predictions.
 
-## Purpose
-The primary purpose of this system is to provide airline decision-makers with a "Control Center" for demand planning. By understanding not just the total demand, but also the underlying trend and seasonal cycles, managers can make more informed choices about fleet deployment and pricing strategies.
+## Core Value Proposition
+AeroDemand AI provides a centralized "Intelligence Hub" for airline operations. By leveraging historical patterns and seasonal cycles, the system allows managers to move from "reactive" planning to "proactive" strategy.
 
-## New in V2.0 (Pro Features)
-- **Time-Series Decomposition**: Visualizing Trend and Seasonal components separately.
-- **Scenario Simulation**: Real-time "What-If" analysis using a price influence slider.
-- **Exporting**: One-click data export to Excel for professional reporting.
-- **Advanced UI**: Full dark mode support for professional environments.
+## Key System Features
+- **Predictive Engine**: High-accuracy forecasting based on year, month, and price sensitivity.
+- **Trend Visualization**: Interactive Chart.js integration to see long-term passenger growth.
+- **Seasonal Analysis**: Identification of summer peaks and winter troughs to optimize flight schedules.
+- **Professional Dashboard**: A modern, responsive UI designed for real-world analytical environments.
+- **Technical Documentation**: A full suite of technical reports documenting the entire development lifecycle.

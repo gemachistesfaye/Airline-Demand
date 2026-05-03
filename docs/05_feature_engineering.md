@@ -1,31 +1,26 @@
 # 05 Feature Engineering
 
-## Overview
-Feature engineering is the most critical step in transforming simple time-series data into a format suitable for regression. We converted the `Month` column into several numerical and categorical features.
+## Transforming Raw Data into Intelligence
+To achieve high prediction accuracy, **AeroDemand AI** transforms simple date-passenger pairs into a multidimensional feature space.
 
-## Implemented Features
+## Key Features Implemented
 
-### 1. Temporal Extraction
-- **Year**: Extracts the calendar year. This helps the model capture long-term growth (trend).
-- **Month**: Extracts the month (1-12). This helps capture recurring monthly patterns.
+### 1. Temporal Indexing
+- **Year & Month**: Extracted as numerical inputs.
+- **Time Index**: A continuous integer (0 to 143) representing the absolute time passed. This allows the Linear Regression model to "see" the long-term growth trend.
 
-### 2. Seasonality
-- **Season**: Mapping months to categories (Winter, Spring, Summer, Autumn). 
-- **Rationale**: Airline demand is highly seasonal. Summer vacations and winter holidays significantly impact passenger numbers differently.
+### 2. Seasonal Mapping
+Instead of treating months as random numbers, we mapped them into four distinct seasons:
+- **Winter (0)**: December, January, February.
+- **Spring (1)**: March, April, May.
+- **Summer (2)**: June, July, August.
+- **Autumn (3)**: September, October, November.
+*This allows the model to anticipate "Summer Spikes" and "Winter Troughs" in passenger traffic.*
 
-### 3. Time Index (Trend)
-- **Calculation**: A sequential integer starting from 0 for the first record.
-- **Rationale**: This provides a direct numerical representation of "time passing," allowing the Linear Regression model to fit a slope for the overall trend.
+### 3. Price Influence (Elasticity)
+We introduced a price feature to simulate demand sensitivity. While not in the original Kaggle set, it was added to the **AeroDemand AI** pipeline to allow for scenario-based forecasting and professional business simulation.
 
 ### 4. Lag Features
-- **lag_1**: Passenger count from the previous month.
-- **lag_12**: Passenger count from the same month of the previous year.
-- **Rationale**: Time-series data is autocorrelated. Knowing how many people flew last month (or last year same month) provides a strong predictor for the current month.
-
-### 5. Simulated Features
-- **Route**: A categorical variable simulating flight paths (e.g., ADD-DIR).
-- **Price**: A dynamic variable where price is simulated to be higher in summer months.
-- **Rationale**: In the real world, price and route are primary drivers of demand. These features make the model more realistic and robust.
-
-## Impact on Model
-By adding these features, we moved from a simple "passengers over time" view to a multi-dimensional model that understands **when** (season), **how much** (price), and **history** (lags).
+- **Lag_1**: Passengers from the previous month.
+- **Lag_12**: Passengers from the same month in the previous year.
+*Lags help the model understand autocorrelation—the concept that demand today is highly related to demand yesterday and last year.*

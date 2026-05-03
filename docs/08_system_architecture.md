@@ -7,10 +7,10 @@ The system follows a modular, decoupled architecture with an enhanced **Python/F
 
 ### 1. Data Layer
 - **Source**: `airline.csv`
-- **Action**: Used for training, visualization, and as the input for the decomposition engine.
+- **Action**: Used for training, visualization and as the input for the decomposition engine.
 
 ### 2. Processing Layer (Analytics Engine)
-- **Feature Engineering**: Standard extraction of year, month, and lags.
+- **Feature Engineering**: Standard extraction of year, month and lags.
 - **Decomposition Engine**: Uses `statsmodels` to perform additive seasonal decomposition, calculating Trend and Seasonal cycles.
 
 ### 3. Model Layer

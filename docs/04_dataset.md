@@ -1,20 +1,21 @@
 # 04 Dataset
 
-## Source
-The system utilizes the standard "AirPassengers" dataset, a well-known time-series dataset containing monthly passenger totals from 1949 to 1960.
-
-## Structure
-The raw dataset consists of two columns:
-- **Month**: Date in `YYYY-MM` format.
-- **#Passengers**: Integer count of international airline passengers (in thousands).
+## Data Source
+The primary data used for this project was sourced from **Kaggle**, specifically utilizing the industry-standard "Air Passengers" dataset. This dataset is widely recognized for time-series forecasting benchmarks.
 
 ## Dataset Characteristics
-- **Total Rows**: 144
-- **Time Span**: 12 years (144 months)
-- **Trend**: Clear upward linear/exponential trend over time.
-- **Seasonality**: Strong yearly seasonality with peaks usually occurring in the summer months (July/August).
+- **Total Observations**: 144 Months.
+- **Time Range**: January 1949 to December 1960.
+- **Primary Feature**: `#Passengers` (Total number of passengers in thousands).
+- **Secondary Features**: Created during the engineering phase (Year, Month, Season).
 
-## Preprocessing Steps
-- Parsing the `Month` column into a `datetime` object.
-- Renaming columns for standardized access.
-- Sorting by date to ensure correct lag feature generation.
+## Data Quality & Integrity
+The dataset was verified for the following:
+- **No Missing Values**: Each of the 144 entries contains a valid passenger count.
+- **Consistency**: Monthly reporting intervals are uniform throughout the series.
+- **Trend and Seasonality**: The data exhibits a clear upward trend and a strong multiplicative seasonal component, making it ideal for the **AeroDemand AI** model.
+
+## Pre-processing Steps
+1. **Cleaning**: Handled by the Data Engineering team to ensure correct data types.
+2. **Indexing**: Converted temporal data into numerical indices for mathematical processing.
+3. **Storage**: The dataset is stored as a CSV file in the `/dataset` directory of the project.

@@ -6,8 +6,8 @@ The development of **AeroDemand AI** was a collaborative effort involving specia
 
 | Team Member | Primary Role | Key Contributions |
 | :--- | :--- | :--- |
-| **Gemachis Tesfaye** | **Lead ML Architect** | Directed the ML pipeline, including feature engineering (seasonality, lags), model training (Linear Regression), and evaluation logic. |
-| **Sisay Tasew** | **Backend Support** | Assisted in Flask API setup, route structuring, and frontend-to-backend data integration. |
+| **Gemachis Tesfaye** | **Lead ML Architect** | Directed the ML pipeline, including feature engineering (seasonality, lags), model training (Linear Regression) and evaluation logic. |
+| **Sisay Tasew** | **Backend Support** | Assisted in Flask API setup, route structuring and frontend-to-backend data integration. |
 | **Daniel Alemayehu** | **Data Analyst** | Performed initial exploratory data analysis (EDA) and validated historical demand patterns. |
 | **Gelata Driba** | **UI/UX Designer** | Developed the core interface structure and implemented the "Industry-Grade" dashboard components. |
 | **Hawi Desalegn** | **System Architect** | Designed the modular project structure and managed the decoupling of the frontend and backend layers. |
@@ -17,4 +17,4 @@ The development of **AeroDemand AI** was a collaborative effort involving specia
 ---
 
 ## Collaboration Statement
-The **AeroDemand AI** project was built using a modular development workflow. By assigning specific domains (ML, Backend, UI, QA, and Data) to different team members, we were able to build a robust, scalable system that meets both industry standards and academic requirements. All team members contributed to the final testing and validation phase of the project.
+The **AeroDemand AI** project was built using a modular development workflow. By assigning specific domains (ML, Backend, UI, QA and Data) to different team members, we were able to build a robust, scalable system that meets both industry standards and academic requirements. All team members contributed to the final testing and validation phase of the project.

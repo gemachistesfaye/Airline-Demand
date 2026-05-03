@@ -1,26 +1,32 @@
 # 10 Frontend
 
-## Design Philosophy (Pro V2.0)
-The AeroDemand AI Pro interface is built to handle multiple data streams without overwhelming the user. It uses a **modular grid system** and **dynamic theming** to create a high-end dashboard feel.
+## Design Philosophy
+The **AeroDemand AI** interface is designed to be a "Professional Analytics Dashboard." It moves away from standard project layouts to provide a sleek, SaaS-like experience.
 
-## Pro Components
+## Tech Stack
+- **Framework**: Vanilla JavaScript (SPA architecture).
+- **Styling**: Tailwind CSS (modern utility-first design).
+- **Icons**: FontAwesome 6.4.
+- **Charts**: Chart.js for interactive time-series visualization.
+- **Typography**: Inter (Google Fonts).
 
-### 1. The "What-If" Slider
-- **Logic**: Connected to the `price` input. Moving the slider triggers a debounced API call to the `/predict` endpoint.
-- **Impact**: Allows users to visually see the elasticity of demand relative to price.
+## Main Components
 
-### 2. Dual-Theme Engine (Dark Mode)
-- **Implementation**: Uses CSS custom variables (`:root` and `body.dark`) to switch the entire UI's color palette.
-- **Chart Sync**: JavaScript logic ensures that Chart.js gridlines and labels also update their colors when the theme changes.
+### 1. Dashboard Overview
+- **Metric Cards**: Displaying Avg. Passengers, Model Accuracy (R²), and Last Data Point.
+- **Mini Trend Chart**: A quick visual of the last 24 months of demand.
 
-### 3. Multi-Chart Dashboard
-- **Historical Chart**: Overview of demand.
-- **Trend Chart**: Shows the "smoothed" growth curve.
-- **Seasonal Chart**: Shows the recurring 12-month pattern (peaks in July/August).
+### 2. Predictive Engine
+- **Input Form**: Clean, rounded fields for Year, Month and Price.
+- **Smart Features**: Automatic season detection based on the selected month.
+- **Feedback System**: Professional loading spinners and detailed result cards.
 
-### 4. Export Integration
-- **Feature**: Collects the user's latest prediction history and sends it to the backend for Excel conversion.
+### 3. Advanced Analytics
+- **Full Trend View**: A zoomable chart of the entire 144-month history.
+- **Seasonal Bar Chart**: Aggregated demand by season to show cyclical patterns.
+- **Confidence Metrics**: Visual bars showing Trend Capture and Variance Handling.
 
 ## User Experience (UX)
-- **Live Updating**: Numerical values use a count-up animation for a more dynamic "high-tech" feel.
-- **Responsive Design**: The dashboard automatically switches from a two-column layout to a single column on smaller screens.
+- **Zero Reloads**: All page transitions and API calls happen asynchronously using the Fetch API.
+- **Responsive Layout**: Sidebar-based navigation that adapts to different screen sizes.
+- **Color System**: A minimal palette of Deep Navy (#0f172a) and Accent Blue (#3b82f6).

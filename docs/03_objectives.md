@@ -1,12 +1,16 @@
 # 03 Objectives
 
 ## Primary Goal
-To build a functional, professional-grade Machine Learning system for airline demand forecasting with advanced analytical capabilities.
+To develop a production-ready software system that predicts monthly airline passenger demand using historical data and machine learning algorithms.
 
-## Key Objectives (Enhanced)
-1. **Accurate Forecasting**: Maintain a high-accuracy baseline using Linear Regression.
-2. **Deep Insights**: Provide a mathematical decomposition of data into Trend and Seasonality components.
-3. **Interactive Simulation**: Enable "What-If" analysis where users can see the immediate impact of price changes on demand.
-4. **Professional Reporting**: Support industry-standard data export formats (Excel) for business integration.
-5. **Modern UX**: Implement a dual-theme (Light/Dark) interface for enhanced accessibility and aesthetic appeal.
-6. **Robust Architecture**: Ensure the backend handles complex statistical calculations (decomposition) and file generation (exporting) efficiently.
+## Technical Objectives
+1. **Data Engineering**: Clean and preprocess the historical airline dataset, ensuring zero missing values and optimal formatting for training.
+2. **Feature Optimization**: Implement advanced feature engineering, including temporal indices and seasonal mapping, to capture cyclical demand patterns.
+3. **Model Development**: Train a robust Linear Regression model capable of explaining at least 90% of the variance in passenger traffic.
+4. **Backend Integration**: Build a responsive RESTful API using Flask to serve model predictions and analytical data.
+5. **Frontend Excellence**: Create a professional, dashboard-style user interface using Tailwind CSS and Vanilla JavaScript for interactive data exploration.
+
+## Academic & Professional Goals
+- Demonstrate the full Software Development Life Cycle (SDLC) in an AI context.
+- Provide a clear, documented path from raw data to a finished software product.
+- Build a portfolio-ready project suitable for university submission and industry demonstration.
