@@ -153,6 +153,17 @@ document.addEventListener('DOMContentLoaded', () => {
         if (el.stats.mae)      el.stats.mae.innerText      = mae  != null ? mae.toFixed(2)  : '—';
         if (el.stats.rmse)     el.stats.rmse.innerText     = rmse != null ? rmse.toFixed(2) : '—';
         if (el.stats.metricR2) el.stats.metricR2.innerText = r2   != null ? r2.toFixed(3)   : '—';
+
+        // CV metrics (new elements in updated index.html)
+        const cvR2   = document.getElementById('cv-r2-mean');
+        const cvMae  = document.getElementById('cv-mae-mean');
+        const cvRmse = document.getElementById('cv-rmse-mean');
+        const status = document.getElementById('status-text');
+
+        if (cvR2)   cvR2.innerText   = state.metrics.cv_r2_mean   != null ? state.metrics.cv_r2_mean.toFixed(3)   : '—';
+        if (cvMae)  cvMae.innerText  = state.metrics.cv_mae_mean  != null ? state.metrics.cv_mae_mean.toFixed(2)  : '—';
+        if (cvRmse) cvRmse.innerText = state.metrics.cv_rmse_mean != null ? state.metrics.cv_rmse_mean.toFixed(2) : '—';
+        if (status) status.innerText = 'Model Ready';
         if (el.stats.r2)       el.stats.r2.innerText       = r2   != null ? r2.toFixed(3)   : '—';
     }
 
