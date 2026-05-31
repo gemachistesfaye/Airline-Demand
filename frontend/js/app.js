@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
         historicalData: [],
         metrics:        null,
         charts:         {},
-        apiBase:        ''
+        apiBase: ''
     };
 
     // ── DOM Elements ───────────────────────────────────────────────────────────
@@ -67,11 +67,9 @@ document.addEventListener('DOMContentLoaded', () => {
         el.pageTitle.innerText = pageTitles[pageId] || '';
         state.activePage = pageId;
 
-        // FIX 1: Delay resize so chart canvas is visible before resize is called
+        // Resize charts when switching to a page that has them
         if (pageId === 'analytics' || pageId === 'home') {
-            setTimeout(() => {
-                Object.values(state.charts).forEach(chart => chart.resize());
-            }, 50);
+            Object.values(state.charts).forEach(chart => chart.resize());
         }
     }
 
@@ -147,6 +145,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function updateMetricUI() {
         if (!state.metrics) return;
 
+        // Keys now match app.py: lowercase mae / rmse / r2
         const mae  = state.metrics.mae;
         const rmse = state.metrics.rmse;
         const r2   = state.metrics.r2;
@@ -154,8 +153,8 @@ document.addEventListener('DOMContentLoaded', () => {
         if (el.stats.mae)      el.stats.mae.innerText      = mae  != null ? mae.toFixed(2)  : '—';
         if (el.stats.rmse)     el.stats.rmse.innerText     = rmse != null ? rmse.toFixed(2) : '—';
         if (el.stats.metricR2) el.stats.metricR2.innerText = r2   != null ? r2.toFixed(3)   : '—';
-        if (el.stats.r2)       el.stats.r2.innerText       = r2   != null ? r2.toFixed(3)   : '—';
 
+        // CV metrics (new elements in updated index.html)
         const cvR2   = document.getElementById('cv-r2-mean');
         const cvMae  = document.getElementById('cv-mae-mean');
         const cvRmse = document.getElementById('cv-rmse-mean');
@@ -165,6 +164,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (cvMae)  cvMae.innerText  = state.metrics.cv_mae_mean  != null ? state.metrics.cv_mae_mean.toFixed(2)  : '—';
         if (cvRmse) cvRmse.innerText = state.metrics.cv_rmse_mean != null ? state.metrics.cv_rmse_mean.toFixed(2) : '—';
         if (status) status.innerText = 'Model Ready';
+        if (el.stats.r2)       el.stats.r2.innerText       = r2   != null ? r2.toFixed(3)   : '—';
     }
 
     // ── Home Stats ─────────────────────────────────────────────────────────────
@@ -172,21 +172,13 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!state.historicalData.length) return;
 
         const last = state.historicalData[state.historicalData.length - 1];
+
+        // Column name is now 'Passengers' (renamed in train.py / app.py)
         const passengers = state.historicalData.map(d => d.Passengers);
         const avg = Math.round(passengers.reduce((a, b) => a + b, 0) / passengers.length);
 
-        if (el.stats.avg) el.stats.avg.innerText = avg.toLocaleString();
-
-        // FIX 2: Build last data point from year + month fields instead of Month string
-        if (el.stats.lastMonth) {
-            const monthNames = ['Jan','Feb','Mar','Apr','May','Jun',
-                                'Jul','Aug','Sep','Oct','Nov','Dec'];
-            const m = parseInt(last.month);
-            const y = parseInt(last.year);
-            el.stats.lastMonth.innerText = (m && y)
-                ? `${monthNames[m - 1]} ${y}`
-                : (last.Month || '—');
-        }
+        if (el.stats.avg)       el.stats.avg.innerText      = avg.toLocaleString();
+        if (el.stats.lastMonth) el.stats.lastMonth.innerText = last.Month || '—';
     }
 
     // ── Charts ─────────────────────────────────────────────────────────────────
@@ -201,6 +193,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!state.historicalData.length) return;
 
         const labels     = state.historicalData.map(d => d.Month);
+        // Column name is now 'Passengers'
         const passengers = state.historicalData.map(d => d.Passengers);
 
         // ── Mini trend (Dashboard) ─────────────────────────────────────────────
@@ -272,18 +265,15 @@ document.addEventListener('DOMContentLoaded', () => {
         // ── Seasonal bar (Analytics) ───────────────────────────────────────────
         destroyChart('seasonBar');
 
+        // Correctly derive month from the Month string (e.g. "1949-01")
         const seasonTotals = { Winter: 0, Spring: 0, Summer: 0, Autumn: 0 };
         const seasonCounts = { Winter: 0, Spring: 0, Summer: 0, Autumn: 0 };
 
         state.historicalData.forEach(d => {
-            // FIX 3: Parse month directly from the 'month' integer field
-            // instead of using new Date() which misreads "1949-01" format
-            const month  = parseInt(d.month);
+            const month  = new Date(d.Month).getMonth() + 1; // 1-12
             const season = getSeasonName(month);
-            if (season && seasonTotals[season] !== undefined) {
-                seasonTotals[season] += d.Passengers;
-                seasonCounts[season]++;
-            }
+            seasonTotals[season] += d.Passengers;
+            seasonCounts[season]++;
         });
 
         const seasonLabels = ['Winter', 'Spring', 'Summer', 'Autumn'];
@@ -343,10 +333,12 @@ document.addEventListener('DOMContentLoaded', () => {
         const year  = parseInt(el.inputYear.value);
         const month = parseInt(el.inputMonth.value);
 
+        // Client-side validation before hitting the API
         if (!validateInputs(year, month)) return;
 
         showLoading();
 
+        // Price field removed — backend no longer uses it
         const payload = { year, month };
 
         try {
@@ -358,8 +350,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const result = await response.json();
 
+            // Small delay so the spinner is visible
             setTimeout(() => {
                 if (result.status === 'success') {
+                    // Update season display from server response (authoritative)
                     if (result.season) updateSeasonDisplay(month);
                     showResult(result.prediction);
                 } else {
@@ -368,7 +362,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }, 600);
 
         } catch (err) {
-            showError('Connection error. Is the backend server running?');
+            showError('Connection error. Is the backend server running on port 5000?');
         }
     });
 
