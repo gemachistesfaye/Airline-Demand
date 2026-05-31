@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
         historicalData: [],
         metrics:        null,
         charts:         {},
-        apiBase:        'http://localhost:5000'
+        apiBase: ''
     };
 
     // ── DOM Elements ───────────────────────────────────────────────────────────
