@@ -1,220 +1,248 @@
 /**
- * AeroDemand AI - Airline Passenger Demand Prediction System
+ * AeroDemand AI — Airline Passenger Demand Prediction System
  * Frontend Logic
  */
 
 document.addEventListener('DOMContentLoaded', () => {
-    // --- State Management ---
+
+    // ── State ──────────────────────────────────────────────────────────────────
     const state = {
-        activePage: 'home',
+        activePage:     'home',
         historicalData: [],
-        metrics: null,
-        charts: {},
-        apiBase: 'http://localhost:5000'
+        metrics:        null,
+        charts:         {},
+        apiBase:        'http://localhost:5000'
     };
 
-    // --- DOM Elements ---
-    const elements = {
-        navLinks: document.querySelectorAll('.nav-link'),
+    // ── DOM Elements ───────────────────────────────────────────────────────────
+    const el = {
+        navLinks:          document.querySelectorAll('.nav-link'),
         pages: {
-            home: document.getElementById('page-home'),
-            predict: document.getElementById('page-predict'),
+            home:      document.getElementById('page-home'),
+            predict:   document.getElementById('page-predict'),
             analytics: document.getElementById('page-analytics')
         },
-        pageTitle: document.getElementById('page-title'),
-        predictionForm: document.getElementById('prediction-form'),
-        inputMonth: document.getElementById('input-month'),
-        displaySeason: document.getElementById('display-season'),
-        seasonIcon: document.getElementById('season-icon'),
-        predictionResult: document.getElementById('prediction-result'),
+        pageTitle:         document.getElementById('page-title'),
+        predictionForm:    document.getElementById('prediction-form'),
+        inputYear:         document.getElementById('input-year'),
+        inputMonth:        document.getElementById('input-month'),
+        displaySeason:     document.getElementById('display-season'),
+        seasonIcon:        document.getElementById('season-icon'),
+        predictionResult:  document.getElementById('prediction-result'),
         predictionLoading: document.getElementById('prediction-loading'),
-        predictionError: document.getElementById('prediction-error'),
-        resultValue: document.getElementById('result-value'),
-        errorMessage: document.getElementById('error-message'),
-        btnReset: document.getElementById('btn-reset'),
+        predictionError:   document.getElementById('prediction-error'),
+        resultValue:       document.getElementById('result-value'),
+        errorMessage:      document.getElementById('error-message'),
+        btnReset:          document.getElementById('btn-reset'),
         stats: {
-            avg: document.getElementById('stat-avg-passengers'),
-            r2: document.getElementById('stat-r2'),
-            lastMonth: document.getElementById('stat-last-month'),
-            mae: document.getElementById('metric-mae'),
-            rmse: document.getElementById('metric-rmse'),
+            avg:      document.getElementById('stat-avg-passengers'),
+            r2:       document.getElementById('stat-r2'),
+            lastMonth:document.getElementById('stat-last-month'),
+            mae:      document.getElementById('metric-mae'),
+            rmse:     document.getElementById('metric-rmse'),
             metricR2: document.getElementById('metric-r2')
         }
     };
 
-    // --- Navigation Logic ---
+    // ── Navigation ─────────────────────────────────────────────────────────────
+    const pageTitles = {
+        home:      'Dashboard Overview',
+        predict:   'Demand Forecasting',
+        analytics: 'Performance Analytics'
+    };
+
     function switchPage(pageId) {
-        // Update Nav Links
-        elements.navLinks.forEach(link => {
-            if (link.id === `nav-${pageId}`) {
-                link.classList.add('active');
-                link.classList.remove('text-gray-300');
-            } else {
-                link.classList.remove('active');
-                link.classList.add('text-gray-300');
-            }
+        el.navLinks.forEach(link => {
+            const isActive = link.id === `nav-${pageId}`;
+            link.classList.toggle('active', isActive);
+            link.classList.toggle('text-gray-300', !isActive);
         });
 
-        // Hide all pages, show active
-        Object.keys(elements.pages).forEach(key => {
-            const page = elements.pages[key];
-            if (key === pageId) {
-                page.classList.remove('hidden-page');
-                page.classList.add('active-page');
-            } else {
-                page.classList.add('hidden-page');
-                page.classList.remove('active-page');
-            }
+        Object.entries(el.pages).forEach(([key, page]) => {
+            const isActive = key === pageId;
+            page.classList.toggle('hidden-page', !isActive);
+            page.classList.toggle('active-page', isActive);
         });
 
-        // Update Title
-        const titles = {
-            home: 'Dashboard Overview',
-            predict: 'Demand Forecasting',
-            analytics: 'Performance Analytics'
-        };
-        elements.pageTitle.innerText = titles[pageId];
+        el.pageTitle.innerText = pageTitles[pageId] || '';
         state.activePage = pageId;
 
-        // Special handling for chart resize
+        // Resize charts when switching to a page that has them
         if (pageId === 'analytics' || pageId === 'home') {
             Object.values(state.charts).forEach(chart => chart.resize());
         }
     }
 
-    elements.navLinks.forEach(link => {
-        link.addEventListener('click', (e) => {
+    el.navLinks.forEach(link => {
+        link.addEventListener('click', e => {
             e.preventDefault();
-            const id = link.id.replace('nav-', '');
-            switchPage(id);
+            switchPage(link.id.replace('nav-', ''));
         });
     });
 
-    // --- Smart Features: Season Detection ---
-    function updateSeason() {
-        const month = parseInt(elements.inputMonth.value);
-        let season = "";
-        let icon = "";
+    // ── Season Detection ───────────────────────────────────────────────────────
+    const seasonConfig = {
+        Winter: { months: [12, 1, 2],  icon: 'fa-snowflake text-blue-400'  },
+        Spring: { months: [3,  4, 5],  icon: 'fa-seedling text-green-400'  },
+        Summer: { months: [6,  7, 8],  icon: 'fa-sun text-yellow-500'      },
+        Autumn: { months: [9, 10, 11], icon: 'fa-leaf text-orange-400'     }
+    };
 
-        if ([12, 1, 2].includes(month)) {
-            season = "Winter";
-            icon = "fa-snowflake text-blue-400";
-        } else if ([3, 4, 5].includes(month)) {
-            season = "Spring";
-            icon = "fa-seedling text-green-400";
-        } else if ([6, 7, 8].includes(month)) {
-            season = "Summer";
-            icon = "fa-sun text-yellow-500";
-        } else {
-            season = "Autumn";
-            icon = "fa-leaf text-orange-400";
+    function getSeasonName(month) {
+        for (const [name, cfg] of Object.entries(seasonConfig)) {
+            if (cfg.months.includes(month)) return name;
         }
-
-        elements.displaySeason.innerText = season;
-        elements.seasonIcon.className = `fas ${icon}`;
+        return 'Winter';
     }
 
-    elements.inputMonth.addEventListener('change', updateSeason);
+    function updateSeasonDisplay(month) {
+        const name = getSeasonName(month);
+        const cfg  = seasonConfig[name];
+        el.displaySeason.innerText  = name;
+        el.seasonIcon.className     = `fas ${cfg.icon}`;
+    }
 
-    // --- API Integration ---
-    async function fetchData() {
+    el.inputMonth.addEventListener('change', () => {
+        updateSeasonDisplay(parseInt(el.inputMonth.value));
+    });
+
+    // ── Input Validation ───────────────────────────────────────────────────────
+    function validateInputs(year, month) {
+        if (isNaN(year) || year < 1949 || year > 2030) {
+            showError('Year must be between 1949 and 2030.');
+            return false;
+        }
+        if (isNaN(month) || month < 1 || month > 12) {
+            showError('Please select a valid month.');
+            return false;
+        }
+        return true;
+    }
+
+    // ── API Calls ──────────────────────────────────────────────────────────────
+    async function fetchMetrics() {
+        const res  = await fetch(`${state.apiBase}/metrics`);
+        state.metrics = await res.json();
+        updateMetricUI();
+    }
+
+    async function fetchHistoricalData() {
+        const res = await fetch(`${state.apiBase}/data`);
+        state.historicalData = await res.json();
+        updateHomeStats();
+        initCharts();
+    }
+
+    async function fetchAllData() {
         try {
-            // Fetch Metrics
-            const metricsRes = await fetch(`${state.apiBase}/metrics`);
-            state.metrics = await metricsRes.json();
-            updateMetricUI();
-
-            // Fetch Historical Data
-            const dataRes = await fetch(`${state.apiBase}/data`);
-            state.historicalData = await dataRes.json();
-            
-            initCharts();
-            updateHomeStats();
+            await Promise.all([fetchMetrics(), fetchHistoricalData()]);
         } catch (err) {
-            console.error("Failed to fetch data:", err);
-            // Show empty state if server is down
-            // document.getElementById('empty-state').classList.remove('hidden');
+            console.error('Could not reach backend:', err);
         }
     }
 
+    // ── Metric UI ──────────────────────────────────────────────────────────────
     function updateMetricUI() {
         if (!state.metrics) return;
-        elements.stats.mae.innerText = state.metrics.MAE?.toFixed(2) || '18.42';
-        elements.stats.rmse.innerText = state.metrics.RMSE?.toFixed(2) || '24.15';
-        elements.stats.metricR2.innerText = state.metrics.R2?.toFixed(3) || '0.941';
-        elements.stats.r2.innerText = state.metrics.R2?.toFixed(3) || '0.941';
+
+        // Keys now match app.py: lowercase mae / rmse / r2
+        const mae  = state.metrics.mae;
+        const rmse = state.metrics.rmse;
+        const r2   = state.metrics.r2;
+
+        if (el.stats.mae)      el.stats.mae.innerText      = mae  != null ? mae.toFixed(2)  : '—';
+        if (el.stats.rmse)     el.stats.rmse.innerText     = rmse != null ? rmse.toFixed(2) : '—';
+        if (el.stats.metricR2) el.stats.metricR2.innerText = r2   != null ? r2.toFixed(3)   : '—';
+        if (el.stats.r2)       el.stats.r2.innerText       = r2   != null ? r2.toFixed(3)   : '—';
     }
 
+    // ── Home Stats ─────────────────────────────────────────────────────────────
     function updateHomeStats() {
-        if (state.historicalData.length === 0) return;
-        
+        if (!state.historicalData.length) return;
+
         const last = state.historicalData[state.historicalData.length - 1];
-        elements.stats.lastMonth.innerText = last.Month;
-        
-        const avg = Math.round(state.historicalData.reduce((acc, curr) => acc + curr['#Passengers'], 0) / state.historicalData.length);
-        elements.stats.avg.innerText = `${avg}K`;
+
+        // Column name is now 'Passengers' (renamed in train.py / app.py)
+        const passengers = state.historicalData.map(d => d.Passengers);
+        const avg = Math.round(passengers.reduce((a, b) => a + b, 0) / passengers.length);
+
+        if (el.stats.avg)       el.stats.avg.innerText      = avg.toLocaleString();
+        if (el.stats.lastMonth) el.stats.lastMonth.innerText = last.Month || '—';
     }
 
-    // --- Charts Logic ---
+    // ── Charts ─────────────────────────────────────────────────────────────────
+    function destroyChart(key) {
+        if (state.charts[key]) {
+            state.charts[key].destroy();
+            delete state.charts[key];
+        }
+    }
+
     function initCharts() {
-        if (state.historicalData.length === 0) return;
+        if (!state.historicalData.length) return;
 
-        const labels = state.historicalData.map(d => d.Month);
-        const passengers = state.historicalData.map(d => d['#Passengers']);
+        const labels     = state.historicalData.map(d => d.Month);
+        // Column name is now 'Passengers'
+        const passengers = state.historicalData.map(d => d.Passengers);
 
-        // Mini Trend (Home)
+        // ── Mini trend (Dashboard) ─────────────────────────────────────────────
+        destroyChart('miniTrend');
         const ctxMini = document.getElementById('chart-mini-trend').getContext('2d');
         state.charts.miniTrend = new Chart(ctxMini, {
             type: 'line',
             data: {
-                labels: labels.slice(-24), // Last 2 years
+                labels:   labels.slice(-24),
                 datasets: [{
-                    label: 'Passengers',
-                    data: passengers.slice(-24),
-                    borderColor: '#3b82f6',
-                    backgroundColor: 'rgba(59, 130, 246, 0.1)',
-                    fill: true,
-                    tension: 0.4,
-                    borderWidth: 3,
-                    pointRadius: 0,
-                    pointHoverRadius: 6
+                    label:           'Passengers',
+                    data:            passengers.slice(-24),
+                    borderColor:     '#3b82f6',
+                    backgroundColor: 'rgba(59,130,246,0.1)',
+                    fill:            true,
+                    tension:         0.4,
+                    borderWidth:     3,
+                    pointRadius:     0,
+                    pointHoverRadius:6
                 }]
             },
             options: {
-                responsive: true,
+                responsive:          true,
                 maintainAspectRatio: false,
                 plugins: { legend: { display: false } },
                 scales: {
                     x: { display: false },
-                    y: { 
-                        grid: { borderDash: [5, 5], color: '#f1f5f9' },
+                    y: {
+                        grid:  { color: '#f1f5f9' },
                         ticks: { font: { size: 10 } }
                     }
                 }
             }
         });
 
-        // Full Trend (Analytics)
+        // ── Full trend (Analytics) ─────────────────────────────────────────────
+        destroyChart('fullTrend');
         const ctxFull = document.getElementById('chart-full-trend').getContext('2d');
         state.charts.fullTrend = new Chart(ctxFull, {
             type: 'line',
             data: {
-                labels: labels,
+                labels,
                 datasets: [{
-                    label: 'Actual Passengers',
-                    data: passengers,
+                    label:       'Actual Passengers',
+                    data:        passengers,
                     borderColor: '#0f172a',
                     borderWidth: 2,
                     pointRadius: 1,
-                    tension: 0.1
+                    tension:     0.1
                 }]
             },
             options: {
-                responsive: true,
+                responsive:          true,
                 maintainAspectRatio: false,
-                interaction: { intersect: false, mode: 'index' },
+                interaction:         { intersect: false, mode: 'index' },
                 plugins: {
-                    legend: { position: 'top', labels: { usePointStyle: true, font: { family: 'Inter' } } }
+                    legend: {
+                        position: 'top',
+                        labels:   { usePointStyle: true }
+                    }
                 },
                 scales: {
                     y: { beginAtZero: false, grid: { color: '#f1f5f9' } },
@@ -223,36 +251,39 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
 
-        // Seasonal Bar (Analytics)
-        // Group data by season index (approximate)
-        const seasonalMeans = [0, 0, 0, 0];
-        const counts = [0, 0, 0, 0];
-        
-        state.historicalData.forEach((d, i) => {
-            const month = (i % 12) + 1;
-            let sIdx = 0; // Winter
-            if ([3, 4, 5].includes(month)) sIdx = 1; // Spring
-            else if ([6, 7, 8].includes(month)) sIdx = 2; // Summer
-            else if ([9, 10, 11].includes(month)) sIdx = 3; // Autumn
-            
-            seasonalMeans[sIdx] += d['#Passengers'];
-            counts[sIdx]++;
+        // ── Seasonal bar (Analytics) ───────────────────────────────────────────
+        destroyChart('seasonBar');
+
+        // Correctly derive month from the Month string (e.g. "1949-01")
+        const seasonTotals = { Winter: 0, Spring: 0, Summer: 0, Autumn: 0 };
+        const seasonCounts = { Winter: 0, Spring: 0, Summer: 0, Autumn: 0 };
+
+        state.historicalData.forEach(d => {
+            const month  = new Date(d.Month).getMonth() + 1; // 1-12
+            const season = getSeasonName(month);
+            seasonTotals[season] += d.Passengers;
+            seasonCounts[season]++;
         });
+
+        const seasonLabels = ['Winter', 'Spring', 'Summer', 'Autumn'];
+        const seasonAvgs   = seasonLabels.map(s =>
+            seasonCounts[s] > 0 ? Math.round(seasonTotals[s] / seasonCounts[s]) : 0
+        );
 
         const ctxBar = document.getElementById('chart-season-bar').getContext('2d');
         state.charts.seasonBar = new Chart(ctxBar, {
             type: 'bar',
             data: {
-                labels: ['Winter', 'Spring', 'Summer', 'Autumn'],
+                labels:   seasonLabels,
                 datasets: [{
-                    label: 'Average Demand',
-                    data: seasonalMeans.map((v, i) => Math.round(v / counts[i])),
+                    label:           'Avg Passengers',
+                    data:            seasonAvgs,
                     backgroundColor: ['#3b82f6', '#10b981', '#f59e0b', '#f97316'],
-                    borderRadius: 8
+                    borderRadius:    8
                 }]
             },
             options: {
-                responsive: true,
+                responsive:          true,
                 maintainAspectRatio: false,
                 plugins: { legend: { display: false } },
                 scales: {
@@ -263,59 +294,74 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // --- Prediction Logic ---
-    elements.predictionForm.addEventListener('submit', async (e) => {
+    // ── Prediction ─────────────────────────────────────────────────────────────
+    function showLoading() {
+        el.predictionResult.classList.add('hidden');
+        el.predictionError.classList.add('hidden');
+        el.predictionLoading.classList.remove('hidden');
+    }
+
+    function showError(msg) {
+        el.predictionLoading.classList.add('hidden');
+        el.predictionResult.classList.add('hidden');
+        el.errorMessage.innerText = msg;
+        el.predictionError.classList.remove('hidden');
+    }
+
+    function showResult(value) {
+        el.predictionLoading.classList.add('hidden');
+        el.predictionError.classList.add('hidden');
+        el.resultValue.innerText = Math.round(value).toLocaleString();
+        el.predictionResult.classList.remove('hidden');
+        el.predictionResult.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+
+    el.predictionForm.addEventListener('submit', async e => {
         e.preventDefault();
 
-        // UI State
-        elements.predictionResult.classList.add('hidden');
-        elements.predictionError.classList.add('hidden');
-        elements.predictionLoading.classList.remove('hidden');
+        const year  = parseInt(el.inputYear.value);
+        const month = parseInt(el.inputMonth.value);
 
-        const payload = {
-            year: parseInt(document.getElementById('input-year').value),
-            month: parseInt(document.getElementById('input-month').value),
-            price: parseFloat(document.getElementById('input-price').value)
-        };
+        // Client-side validation before hitting the API
+        if (!validateInputs(year, month)) return;
+
+        showLoading();
+
+        // Price field removed — backend no longer uses it
+        const payload = { year, month };
 
         try {
             const response = await fetch(`${state.apiBase}/predict`, {
-                method: 'POST',
+                method:  'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(payload)
+                body:    JSON.stringify(payload)
             });
 
             const result = await response.json();
 
-            // Artificial delay for better UX (so the spinner is visible)
+            // Small delay so the spinner is visible
             setTimeout(() => {
-                elements.predictionLoading.classList.add('hidden');
-                
                 if (result.status === 'success') {
-                    elements.resultValue.innerText = Math.round(result.prediction).toLocaleString();
-                    elements.predictionResult.classList.remove('hidden');
-                    // Smooth scroll to result
-                    elements.predictionResult.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                    // Update season display from server response (authoritative)
+                    if (result.season) updateSeasonDisplay(month);
+                    showResult(result.prediction);
                 } else {
-                    elements.errorMessage.innerText = result.error || "Prediction failed.";
-                    elements.predictionError.classList.remove('hidden');
+                    showError(result.error || 'Prediction failed.');
                 }
-            }, 800);
+            }, 600);
 
         } catch (err) {
-            elements.predictionLoading.classList.add('hidden');
-            elements.errorMessage.innerText = "Connection error. Is the backend server running?";
-            elements.predictionError.classList.remove('hidden');
+            showError('Connection error. Is the backend server running on port 5000?');
         }
     });
 
-    elements.btnReset.addEventListener('click', () => {
-        elements.predictionResult.classList.add('hidden');
-        elements.predictionError.classList.add('hidden');
-        updateSeason();
+    el.btnReset.addEventListener('click', () => {
+        el.predictionResult.classList.add('hidden');
+        el.predictionError.classList.add('hidden');
+        updateSeasonDisplay(parseInt(el.inputMonth.value));
     });
 
-    // --- Initialization ---
-    updateSeason();
-    fetchData();
+    // ── Init ───────────────────────────────────────────────────────────────────
+    updateSeasonDisplay(parseInt(el.inputMonth.value));
+    fetchAllData();
 });
