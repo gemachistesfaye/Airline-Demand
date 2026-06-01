@@ -5,9 +5,13 @@
 [![Flask](https://img.shields.io/badge/Flask-3.1-000000.svg?logo=flask&logoColor=white)](https://flask.palletsprojects.com/)
 [![Scikit-Learn](https://img.shields.io/badge/Scikit--Learn-1.4-F7931E.svg?logo=scikit-learn&logoColor=white)](https://scikit-learn.org/)
 [![Deployed on Render](https://img.shields.io/badge/Deployed%20on-Render-46E3B7.svg?logo=render&logoColor=white)](https://aerodemand-ai.onrender.com)
-[![License](https://img.shields.io/badge/License-MIT-8B5CF6.svg)](https://opensource.org/licenses/MIT)
+[![Release](https://img.shields.io/github/v/release/gemachistesfaye/AeroDemand-AI?color=success&label=Release)](https://github.com/gemachistesfaye/AeroDemand-AI/releases/tag/v1.0.0)
+[![License: MIT](https://img.shields.io/badge/License-MIT-8B5CF6.svg)](LICENSE)
+[![Code of Conduct](https://img.shields.io/badge/Code%20of%20Conduct-Contributor%20Covenant-orange.svg)](.github/CODE_OF_CONDUCT.md)
+[![Contributing](https://img.shields.io/badge/Contributing-Guide-green.svg)](.github/CONTRIBUTING.md)
+[![Security](https://img.shields.io/badge/Security-Policy-red.svg)](SECURITY.md)
 
-> **AeroDemand AI** is a production-grade, full-stack machine learning platform that forecasts airline passenger demand using Linear Regression with time-series cross-validation. It features a live REST API, an interactive analytics dashboard, and is fully deployed on Render.
+> **AeroDemand AI** is a production-grade, full-stack machine learning platform that forecasts airline passenger demand using Linear Regression with time-series cross-validation. It features a live REST API, an interactive analytics dashboard and is fully deployed on Render.
 
 ### 🌐 Live Demo → [https://aerodemand-ai.onrender.com](https://aerodemand-ai.onrender.com)
 
@@ -29,6 +33,8 @@
 ![Analytics](https://raw.githubusercontent.com/gemachistesfaye/AeroDemand-AI/main/docs/screenshots/analytics.png)
 *MAE, RMSE, R² Score, Full Passenger Trend chart, Seasonal Distribution bar chart and 5-fold Cross-Validation summary.*
 
+> 📁 Screenshots stored in [`docs/screenshots/`](docs/screenshots/). Replace the `.png` files and push to update them.
+
 ---
 
 ## ✨ Features
@@ -39,9 +45,10 @@
 | 🔮 **Demand Forecaster** | Predict passenger volume by year + month with auto season detection |
 | 📈 **Full Analytics** | Trend chart, seasonal bar chart, CV mean R²/MAE/RMSE |
 | 🤖 **ML Pipeline** | Linear Regression + lag features + one-hot season encoding + 5-fold TimeSeriesSplit |
-| 📤 **Excel Export** | Download forecast results as `.xlsx` via `/export` endpoint |
+| 📤 **Excel Export** | Download forecast results as `.xlsx` via the Export button on the Predictions page |
 | 🌐 **REST API** | 5 JSON endpoints — predict, data, metrics, decompose, export |
-| 💎 **Premium UI** | Navy/slate SPA, Inter font, glassmorphism cards, fully responsive |
+| 📱 **Fully Responsive** | Mobile bottom navigation + desktop sidebar — works on all screen sizes |
+| 💎 **Premium UI** | Navy/slate SPA, Inter font, glassmorphism cards |
 | ⚡ **Zero-reload** | Vanilla JS + Fetch API, no framework needed |
 
 ---
@@ -80,22 +87,34 @@
 
 ```
 AeroDemand-AI/
+├── .github/
+│   ├── CODE_OF_CONDUCT.md      # Community standards
+│   ├── CONTRIBUTING.md         # How to contribute
+│   └── ISSUE_TEMPLATE/
+│       ├── bug_report.md       # Bug report template
+│       └── feature_request.md  # Feature request template
 ├── backend/
-│   ├── app.py              # Flask REST API — 5 endpoints
-│   └── train.py            # ML training pipeline with CV
+│   ├── app.py                  # Flask REST API — 5 endpoints
+│   └── train.py                # ML training pipeline with CV
 ├── frontend/
 │   ├── css/
-│   │   └── style.css       # Custom styles + spinner
+│   │   └── style.css           # Custom styles + spinner
 │   ├── js/
-│   │   └── app.js          # SPA logic — navigation, charts, API calls
-│   └── index.html          # Single Page Dashboard
+│   │   └── app.js              # SPA logic — navigation, charts, API calls
+│   ├── favicon.ico             # Plane favicon
+│   └── index.html              # Single Page Dashboard (fully responsive)
 ├── dataset/
-│   └── airline.csv         # 144 monthly passenger observations
-├── docs/                   # 14-page technical documentation suite
-├── requirements.txt        # Python dependencies (pinned versions)
-├── Procfile                # Gunicorn start command for Render
-├── render.yaml             # Render deployment config
-├── .python-version         # Pins Python 3.11.0
+│   └── airline.csv             # 144 monthly passenger observations
+├── docs/
+│   ├── screenshots/            # Dashboard, Predictions, Analytics screenshots
+│   └── ...                     # 14-page technical documentation suite
+├── requirements.txt            # Python dependencies (pinned versions)
+├── Procfile                    # Gunicorn start command for Render
+├── render.yaml                 # Render deployment config
+├── .python-version             # Pins Python 3.11.0
+├── .gitignore                  # Excludes venv, __pycache__, model.pkl
+├── LICENSE                     # MIT License
+├── SECURITY.md                 # Security policy
 └── README.md
 ```
 
@@ -125,7 +144,7 @@ source venv/bin/activate
 # 3. Install dependencies
 pip install -r requirements.txt
 
-# 4. Train the model (MUST run before starting the server)
+# 4. Train the model — MUST run before starting the server
 python backend/train.py
 
 # 5. Start the server
@@ -174,12 +193,33 @@ curl -X POST https://aerodemand-ai.onrender.com/predict \
 The app is deployed on **Render** with Flask serving both the frontend and backend from a single URL.
 
 ```
-https://aerodemand-ai.onrender.com        ← Dashboard (index.html)
+https://aerodemand-ai.onrender.com         ← Dashboard (index.html)
 https://aerodemand-ai.onrender.com/predict ← Prediction API
 https://aerodemand-ai.onrender.com/metrics ← Model metrics
+https://aerodemand-ai.onrender.com/data    ← Historical data
 ```
 
-Render auto-deploys on every push to `main`. The build command runs `train.py` to regenerate the model before starting Gunicorn.
+Render auto-deploys on every push to `main`. The start command runs `train.py` to regenerate the model before starting Gunicorn.
+
+---
+
+## 🏷️ Releases
+
+| Version | Date | Description |
+|---|---|---|
+| [v1.0.0](https://github.com/gemachistesfaye/AeroDemand-AI/releases/tag/v1.0.0) | June 2026 | Initial production release — deployed live on Render |
+
+---
+
+## 🤝 Contributing
+
+Contributions, bug reports and feature requests are welcome!
+
+- 📖 Read the [Contributing Guide](.github/CONTRIBUTING.md) before opening a PR
+- 🐛 Report bugs using the [Bug Report](.github/ISSUE_TEMPLATE/bug_report.md) template
+- 💡 Request features using the [Feature Request](.github/ISSUE_TEMPLATE/feature_request.md) template
+- 📜 Please follow our [Code of Conduct](.github/CODE_OF_CONDUCT.md)
+- 🔒 Report security issues via [SECURITY.md](SECURITY.md)
 
 ---
 
@@ -196,4 +236,6 @@ Render auto-deploys on every push to `main`. The build command runs `train.py` t
 
 ## 📄 License
 
-MIT License © 2026 — University Academic Project
+This project is licensed under the **MIT License** — see the [LICENSE](LICENSE) file for details.
+
+© 2026 University Academic Project
