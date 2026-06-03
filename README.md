@@ -223,16 +223,7 @@ Contributions, bug reports and feature requests are welcome!
 
 ---
 
-## 👥 Team
 
-| Name | Role |
-|---|---|
-| **Gemachis Tesfaye** | Project Lead & ML Architect |
-| **Sisay Tasew** | Backend Integration |
-
-> For detailed individual contributions see [`docs/13_team_contribution.md`](docs/13_team_contribution.md)
-
----
 
 ## 📄 License
 
