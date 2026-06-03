@@ -238,4 +238,4 @@ Contributions, bug reports and feature requests are welcome!
 
 This project is licensed under the **MIT License** — see the [LICENSE](LICENSE) file for details.
 
-© 2026 University Academic Project
+© 2026 AeroDemand AI

@@ -12,9 +12,9 @@ The development of **AeroDemand AI** was a collaborative effort involving specia
 | **Gelata Driba** | **UI/UX Designer** | Developed the core interface structure and implemented the "Industry-Grade" dashboard components. |
 | **Hawi Desalegn** | **System Architect** | Designed the modular project structure and managed the decoupling of the frontend and backend layers. |
 | **Kenenisa Gudeta** | **Data Engineer** | Sourced the historical airline dataset from Kaggle and managed dataset cleaning/formatting. |
-| **Bonsa Horsa** | **Documentation Lead** | Authored the 14-page technical documentation suite and ensured academic report standards. |
+| **Bonsa Horsa** | **Documentation Lead** | Authored the 14-page technical documentation suite and ensured technical report standards. |
 
 ---
 
 ## Collaboration Statement
-The **AeroDemand AI** project was built using a modular development workflow. By assigning specific domains (ML, Backend, UI, QA and Data) to different team members, we were able to build a robust, scalable system that meets both industry standards and academic requirements. All team members contributed to the final testing and validation phase of the project.
+The **AeroDemand AI** project was built using a modular development workflow. By assigning specific domains (ML, Backend, UI, QA and Data) to different team members, we were able to build a robust, scalable system that meets stringent industry standards. All team members contributed to the final testing and validation phase of the project.

@@ -10,7 +10,7 @@ To develop a production-ready software system that predicts monthly airline pass
 4. **Backend Integration**: Build a responsive RESTful API using Flask to serve model predictions and analytical data.
 5. **Frontend Excellence**: Create a professional, dashboard-style user interface using Tailwind CSS and Vanilla JavaScript for interactive data exploration.
 
-## Academic & Professional Goals
+## Professional Goals
 - Demonstrate the full Software Development Life Cycle (SDLC) in an AI context.
 - Provide a clear, documented path from raw data to a finished software product.
-- Build a portfolio-ready project suitable for university submission and industry demonstration.
+- Build a portfolio-ready project suitable for industry demonstration and open-source contribution.
