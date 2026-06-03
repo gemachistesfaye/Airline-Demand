@@ -11,7 +11,8 @@ document.addEventListener('DOMContentLoaded', () => {
         historicalData: [],
         metrics:        null,
         charts:         {},
-        apiBase:        ''
+        apiBase:        '',
+        lastPredictions:[]
     };
 
     // ── DOM Elements ───────────────────────────────────────────────────────────
@@ -34,6 +35,7 @@ document.addEventListener('DOMContentLoaded', () => {
         resultValue:       document.getElementById('result-value'),
         errorMessage:      document.getElementById('error-message'),
         btnReset:          document.getElementById('btn-reset'),
+        btnExport:         document.getElementById('btn-export'),
         stats: {
             avg:      document.getElementById('stat-avg-passengers'),
             r2:       document.getElementById('stat-r2'),
@@ -53,9 +55,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function switchPage(pageId) {
         el.navLinks.forEach(link => {
-            const isActive = link.id === `nav-${pageId}`;
+            const isActive = link.id === `nav-${pageId}` || link.id === `nav-mobile-${pageId}`;
             link.classList.toggle('active', isActive);
-            link.classList.toggle('text-gray-300', !isActive);
+            
+            // For desktop
+            if(link.id.startsWith('nav-') && !link.id.startsWith('nav-mobile-')) {
+                link.classList.toggle('text-gray-300', !isActive);
+            }
+            // For mobile
+            if(link.id.startsWith('nav-mobile-')) {
+                link.classList.toggle('text-gray-400', !isActive);
+                link.classList.toggle('text-navy-900', isActive);
+            }
         });
 
         Object.entries(el.pages).forEach(([key, page]) => {
@@ -78,7 +89,8 @@ document.addEventListener('DOMContentLoaded', () => {
     el.navLinks.forEach(link => {
         link.addEventListener('click', e => {
             e.preventDefault();
-            switchPage(link.id.replace('nav-', ''));
+            const id = link.id.replace('nav-mobile-', '').replace('nav-', '');
+            switchPage(id);
         });
     });
 
@@ -360,6 +372,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (result.status === 'success') {
                     if (result.season) updateSeasonDisplay(month);
                     showResult(result.prediction);
+                    state.lastPredictions.push({
+                        Year: year,
+                        Month: month,
+                        Predicted_Passengers: Math.round(result.prediction)
+                    });
+                    if (el.btnExport) el.btnExport.classList.remove('hidden');
                 } else {
                     showError(result.error || 'Prediction failed.');
                 }
@@ -369,6 +387,29 @@ document.addEventListener('DOMContentLoaded', () => {
             showError('Connection error. Is the backend server running?');
         }
     });
+
+    if (el.btnExport) {
+        el.btnExport.addEventListener('click', async () => {
+            if (state.lastPredictions.length === 0) return;
+            try {
+                const response = await fetch(`${state.apiBase}/export`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ predictions: state.lastPredictions })
+                });
+                const blob = await response.blob();
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'Forecast_Report.xlsx';
+                document.body.appendChild(a);
+                a.click();
+                a.remove();
+            } catch (err) {
+                alert('Export failed. Make sure the backend is running.');
+            }
+        });
+    }
 
     el.btnReset.addEventListener('click', () => {
         el.predictionResult.classList.add('hidden');

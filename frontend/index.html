@@ -40,9 +40,15 @@
 <link rel="apple-touch-icon" sizes="192x192" href="favicon-192x192.png">
 </head>
 
-<body class="bg-slate-50">
+<body class="bg-slate-50 relative overflow-hidden">
+    <!-- Decorative background elements for glassmorphism -->
+    <div class="absolute top-0 left-0 w-full h-full overflow-hidden -z-10 pointer-events-none">
+        <div class="absolute top-[-10%] left-[-5%] w-96 h-96 bg-blue-300 rounded-full mix-blend-multiply filter blur-3xl opacity-30"></div>
+        <div class="absolute top-[20%] right-[-10%] w-96 h-96 bg-purple-300 rounded-full mix-blend-multiply filter blur-3xl opacity-30"></div>
+        <div class="absolute bottom-[-10%] left-[20%] w-96 h-96 bg-teal-300 rounded-full mix-blend-multiply filter blur-3xl opacity-30"></div>
+    </div>
 
-    <div class="flex h-screen overflow-hidden">
+    <div class="flex h-screen w-full overflow-hidden bg-slate-50/50 backdrop-blur-sm">
 
         <!-- ── Sidebar ──────────────────────────────────────────────────────── -->
         <aside class="w-64 bg-navy-900 text-white flex-shrink-0 hidden md:flex flex-col">
@@ -88,7 +94,7 @@
         <main class="flex-1 flex flex-col overflow-hidden">
 
             <!-- Navbar -->
-            <header class="h-16 bg-white border-b border-gray-200 flex items-center justify-between px-8 z-10">
+            <header class="h-16 glass border-b border-white/50 flex items-center justify-between px-8 z-10">
                 <h1 id="page-title" class="text-xl font-semibold text-navy-900">Dashboard Overview</h1>
                 <div class="flex items-center space-x-4">
                     <!-- User info only — search and bell removed (non-functional) -->
@@ -112,7 +118,7 @@
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
 
                         <!-- Stat: Avg passengers -->
-                        <div class="stat-card bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
+                        <div class="stat-card glass p-6 rounded-2xl shadow-sm border border-white/50">
                             <div class="flex items-center justify-between mb-4">
                                 <div class="w-12 h-12 bg-blue-50 rounded-xl flex items-center justify-center text-blue-600">
                                     <i class="fas fa-users text-xl"></i>
@@ -124,7 +130,7 @@
                         </div>
 
                         <!-- Stat: Model accuracy -->
-                        <div class="stat-card bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
+                        <div class="stat-card glass p-6 rounded-2xl shadow-sm border border-white/50">
                             <div class="flex items-center justify-between mb-4">
                                 <div class="w-12 h-12 bg-purple-50 rounded-xl flex items-center justify-center text-purple-600">
                                     <i class="fas fa-bullseye text-xl"></i>
@@ -138,7 +144,7 @@
                         </div>
 
                         <!-- Stat: Last data point -->
-                        <div class="stat-card bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
+                        <div class="stat-card glass p-6 rounded-2xl shadow-sm border border-white/50">
                             <div class="flex items-center justify-between mb-4">
                                 <div class="w-12 h-12 bg-orange-50 rounded-xl flex items-center justify-center text-orange-600">
                                     <i class="fas fa-clock text-xl"></i>
@@ -151,7 +157,7 @@
                     </div>
 
                     <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                        <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
+                        <div class="glass p-6 rounded-2xl shadow-sm border border-white/50">
                             <div class="flex items-center justify-between mb-6">
                                 <h4 class="font-bold text-navy-900">Historical Demand Trend</h4>
                                 <button
@@ -168,7 +174,7 @@
                             </div>
                         </div>
 
-                        <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
+                        <div class="glass p-6 rounded-2xl shadow-sm border border-white/50">
                             <h4 class="font-bold text-navy-900 mb-6">System Overview</h4>
                             <div class="space-y-6">
                                 <p class="text-gray-600 text-sm leading-relaxed">
@@ -207,12 +213,17 @@
                 <!-- ── Predictions Page ─────────────────────────────────────── -->
                 <section id="page-predict" class="page-transition hidden-page">
                     <div class="max-w-4xl mx-auto">
-                        <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
-                            <div class="p-8 border-b border-gray-100">
-                                <h3 class="text-xl font-bold text-navy-900">Demand Forecaster</h3>
-                                <p class="text-gray-500 text-sm mt-1">
-                                    Select a year and month to predict passenger volume.
-                                </p>
+                        <div class="glass rounded-2xl shadow-sm border border-white/50 overflow-hidden">
+                            <div class="p-8 border-b border-white/50/50 flex justify-between items-center">
+                                <div>
+                                    <h3 class="text-xl font-bold text-navy-900">Demand Forecaster</h3>
+                                    <p class="text-gray-500 text-sm mt-1">
+                                        Select a year and month to predict passenger volume.
+                                    </p>
+                                </div>
+                                <button id="btn-export" class="hidden px-4 py-2 bg-green-500 text-white rounded-lg font-bold hover:bg-green-600 transition-all shadow-sm">
+                                    <i class="fas fa-file-excel mr-2"></i> Export .xlsx
+                                </button>
                             </div>
                             <div class="p-8">
                                 <form id="prediction-form" class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -229,7 +240,7 @@
                                             value="1961"
                                             min="1949"
                                             max="2030"
-                                            class="w-full p-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-accent focus:border-transparent outline-none transition-all">
+                                            class="w-full p-3 bg-gray-50 border border-white/50 rounded-xl focus:ring-2 focus:ring-accent focus:border-transparent outline-none transition-all">
                                     </div>
 
                                     <!-- Month -->
@@ -237,7 +248,7 @@
                                         <label class="text-sm font-semibold text-navy-900">Forecast Month</label>
                                         <select
                                             id="input-month"
-                                            class="w-full p-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-accent focus:border-transparent outline-none transition-all">
+                                            class="w-full p-3 bg-gray-50 border border-white/50 rounded-xl focus:ring-2 focus:ring-accent focus:border-transparent outline-none transition-all">
                                             <option value="1">January</option>
                                             <option value="2">February</option>
                                             <option value="3">March</option>
@@ -299,7 +310,7 @@
 
                         <!-- Loading -->
                         <div id="prediction-loading" class="mt-8 hidden">
-                            <div class="bg-white rounded-2xl p-12 border border-gray-100 flex flex-col items-center justify-center space-y-4">
+                            <div class="glass rounded-2xl p-12 border border-white/50 flex flex-col items-center justify-center space-y-4">
                                 <div class="spinner"></div>
                                 <p class="text-gray-500 font-medium">Analyzing historical patterns...</p>
                             </div>
@@ -320,22 +331,22 @@
 
                     <!-- Metric cards — values loaded dynamically from /metrics -->
                     <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-                        <div class="bg-white p-5 rounded-2xl shadow-sm border border-gray-100">
+                        <div class="glass p-5 rounded-2xl shadow-sm border border-white/50">
                             <p class="text-gray-400 text-xs font-bold uppercase">MAE</p>
                             <p class="text-2xl font-bold text-navy-900" id="metric-mae">—</p>
                             <p class="text-xs text-gray-400 mt-1">Mean Abs. Error</p>
                         </div>
-                        <div class="bg-white p-5 rounded-2xl shadow-sm border border-gray-100">
+                        <div class="glass p-5 rounded-2xl shadow-sm border border-white/50">
                             <p class="text-gray-400 text-xs font-bold uppercase">RMSE</p>
                             <p class="text-2xl font-bold text-navy-900" id="metric-rmse">—</p>
                             <p class="text-xs text-gray-400 mt-1">Root Mean Sq. Error</p>
                         </div>
-                        <div class="bg-white p-5 rounded-2xl shadow-sm border border-gray-100">
+                        <div class="glass p-5 rounded-2xl shadow-sm border border-white/50">
                             <p class="text-gray-400 text-xs font-bold uppercase">R² Score</p>
                             <p class="text-2xl font-bold text-navy-900" id="metric-r2">—</p>
                             <p class="text-xs text-gray-400 mt-1">Coefficient of Det.</p>
                         </div>
-                        <div class="bg-white p-5 rounded-2xl shadow-sm border border-gray-100">
+                        <div class="glass p-5 rounded-2xl shadow-sm border border-white/50">
                             <p class="text-gray-400 text-xs font-bold uppercase">CV Folds</p>
                             <p class="text-2xl font-bold text-green-500">5</p>
                             <p class="text-xs text-gray-400 mt-1">Time-series split</p>
@@ -345,7 +356,7 @@
                     <div class="grid grid-cols-1 gap-8">
 
                         <!-- Full trend chart -->
-                        <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100">
+                        <div class="glass p-8 rounded-2xl shadow-sm border border-white/50">
                             <h4 class="font-bold text-navy-900 mb-6">Full Passenger Trend</h4>
                             <div class="h-96">
                                 <canvas id="chart-full-trend"
@@ -358,7 +369,7 @@
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
 
                             <!-- Seasonal bar chart -->
-                            <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100">
+                            <div class="glass p-8 rounded-2xl shadow-sm border border-white/50">
                                 <h4 class="font-bold text-navy-900 mb-6">Seasonal Demand Distribution</h4>
                                 <div class="h-64">
                                     <canvas id="chart-season-bar"
@@ -369,7 +380,7 @@
                             </div>
 
                             <!-- CV metrics card -->
-                            <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100">
+                            <div class="glass p-8 rounded-2xl shadow-sm border border-white/50">
                                 <h4 class="font-bold text-navy-900 mb-6">Cross-Validation Summary</h4>
                                 <div class="space-y-4">
 
@@ -419,10 +430,26 @@
             </div>
 
             <!-- Footer -->
-            <footer class="h-10 bg-white border-t border-gray-100 flex items-center justify-between px-8 text-[10px] text-gray-400 uppercase tracking-widest font-bold">
+            <footer class="h-10 glass border-t border-white/50 flex items-center justify-between px-8 text-[10px] text-gray-400 uppercase tracking-widest font-bold hidden md:flex">
                 <span>AeroDemand AI v1.0.4</span>
                 <span>© 2026 University Academic Project</span>
             </footer>
+
+            <!-- Mobile Bottom Navigation -->
+            <nav class="md:hidden glass border-t border-white/50 flex justify-around items-center h-16 w-full shrink-0 z-50">
+                <a href="#" id="nav-mobile-home" class="nav-link active flex flex-col items-center w-full text-navy-900 transition-colors py-2">
+                    <i class="fas fa-th-large text-lg mb-1"></i>
+                    <span class="text-[10px] uppercase font-bold">Dashboard</span>
+                </a>
+                <a href="#" id="nav-mobile-predict" class="nav-link flex flex-col items-center w-full text-gray-400 transition-colors py-2">
+                    <i class="fas fa-chart-line text-lg mb-1"></i>
+                    <span class="text-[10px] uppercase font-bold">Predict</span>
+                </a>
+                <a href="#" id="nav-mobile-analytics" class="nav-link flex flex-col items-center w-full text-gray-400 transition-colors py-2">
+                    <i class="fas fa-pie-chart text-lg mb-1"></i>
+                    <span class="text-[10px] uppercase font-bold">Analytics</span>
+                </a>
+            </nav>
         </main>
     </div>
 
