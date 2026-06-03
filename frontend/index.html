@@ -94,16 +94,16 @@
         <main class="flex-1 flex flex-col overflow-hidden">
 
             <!-- Navbar -->
-            <header class="h-16 glass border-b border-white/50 flex items-center justify-between px-8 z-10">
-                <h1 id="page-title" class="text-xl font-semibold text-navy-900">Dashboard Overview</h1>
-                <div class="flex items-center space-x-4">
+            <header class="h-16 glass border-b border-white/50 flex items-center justify-between px-4 sm:px-8 z-10 shrink-0">
+                <h1 id="page-title" class="text-lg sm:text-xl font-semibold text-navy-900 truncate pr-2">Dashboard Overview</h1>
+                <div class="flex items-center space-x-4 shrink-0">
                     <!-- User info only — search and bell removed (non-functional) -->
                     <div class="flex items-center space-x-3">
-                        <div class="text-right">
+                        <div class="text-right hidden sm:block">
                             <p class="text-sm font-medium text-navy-900">Analyst Mode</p>
                             <p class="text-xs text-gray-500">University Project</p>
                         </div>
-                        <div class="w-10 h-10 rounded-full bg-accent flex items-center justify-center text-white font-bold">
+                        <div class="w-10 h-10 rounded-full bg-accent flex items-center justify-center text-white font-bold shrink-0">
                             A
                         </div>
                     </div>
@@ -111,7 +111,7 @@
             </header>
 
             <!-- Page Container -->
-            <div class="flex-1 overflow-y-auto p-8" id="content-area">
+            <div class="flex-1 overflow-y-auto p-4 sm:p-8" id="content-area">
 
                 <!-- ── Dashboard Page ───────────────────────────────────────── -->
                 <section id="page-home" class="page-transition active-page">
@@ -214,18 +214,18 @@
                 <section id="page-predict" class="page-transition hidden-page">
                     <div class="max-w-4xl mx-auto">
                         <div class="glass rounded-2xl shadow-sm border border-white/50 overflow-hidden">
-                            <div class="p-8 border-b border-white/50/50 flex justify-between items-center">
+                            <div class="p-6 sm:p-8 border-b border-white/50 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
                                 <div>
                                     <h3 class="text-xl font-bold text-navy-900">Demand Forecaster</h3>
                                     <p class="text-gray-500 text-sm mt-1">
                                         Select a year and month to predict passenger volume.
                                     </p>
                                 </div>
-                                <button id="btn-export" class="hidden px-4 py-2 bg-green-500 text-white rounded-lg font-bold hover:bg-green-600 transition-all shadow-sm">
+                                <button id="btn-export" class="hidden px-4 py-3 sm:py-2 bg-green-500 text-white rounded-lg font-bold hover:bg-green-600 transition-all shadow-sm whitespace-nowrap w-full sm:w-auto flex justify-center items-center">
                                     <i class="fas fa-file-excel mr-2"></i> Export .xlsx
                                 </button>
                             </div>
-                            <div class="p-8">
+                            <div class="p-6 sm:p-8">
                                 <form id="prediction-form" class="grid grid-cols-1 md:grid-cols-2 gap-6">
 
                                     <!-- Year -->
@@ -437,17 +437,17 @@
 
             <!-- Mobile Bottom Navigation -->
             <nav class="md:hidden glass border-t border-white/50 flex justify-around items-center h-16 w-full shrink-0 z-50">
-                <a href="#" id="nav-mobile-home" class="nav-link active flex flex-col items-center w-full text-navy-900 transition-colors py-2">
+                <a href="#" id="nav-mobile-home" class="nav-link active flex flex-col items-center justify-center w-full h-full text-navy-900 transition-colors">
                     <i class="fas fa-th-large text-lg mb-1"></i>
-                    <span class="text-[10px] uppercase font-bold">Dashboard</span>
+                    <span class="text-[10px] uppercase font-bold mt-1">Dashboard</span>
                 </a>
-                <a href="#" id="nav-mobile-predict" class="nav-link flex flex-col items-center w-full text-gray-400 transition-colors py-2">
+                <a href="#" id="nav-mobile-predict" class="nav-link flex flex-col items-center justify-center w-full h-full text-gray-400 transition-colors">
                     <i class="fas fa-chart-line text-lg mb-1"></i>
-                    <span class="text-[10px] uppercase font-bold">Predict</span>
+                    <span class="text-[10px] uppercase font-bold mt-1">Predict</span>
                 </a>
-                <a href="#" id="nav-mobile-analytics" class="nav-link flex flex-col items-center w-full text-gray-400 transition-colors py-2">
+                <a href="#" id="nav-mobile-analytics" class="nav-link flex flex-col items-center justify-center w-full h-full text-gray-400 transition-colors">
                     <i class="fas fa-pie-chart text-lg mb-1"></i>
-                    <span class="text-[10px] uppercase font-bold">Analytics</span>
+                    <span class="text-[10px] uppercase font-bold mt-1">Analytics</span>
                 </a>
             </nav>
         </main>

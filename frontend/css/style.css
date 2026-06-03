@@ -58,12 +58,12 @@ body {
 }
 
 /* Sidebar Active Link */
-.nav-link.active {
+aside .nav-link.active {
     background-color: var(--accent-blue);
     color: white;
 }
 
-.nav-link.active i {
+aside .nav-link.active i {
     color: white;
 }
 
