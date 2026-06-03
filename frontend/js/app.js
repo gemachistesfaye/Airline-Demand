@@ -65,7 +65,7 @@ document.addEventListener('DOMContentLoaded', () => {
             // For mobile
             if(link.id.startsWith('nav-mobile-')) {
                 link.classList.toggle('text-gray-400', !isActive);
-                link.classList.toggle('text-navy-900', isActive);
+                link.classList.toggle('text-accent', isActive);
             }
         });
 
